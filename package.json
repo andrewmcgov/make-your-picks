@@ -5,7 +5,10 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "generate": "npx prisma generate",
+    "studio": "npx prisma studio",
+    "migrate": "npx prisma migrate dev --preview-feature "
   },
   "dependencies": {
     "@prisma/client": "2.13.0",
