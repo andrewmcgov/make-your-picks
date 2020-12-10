@@ -2,6 +2,14 @@ import Head from 'next/head';
 import styles from '../styles/Home.module.css';
 
 export default function Home() {
+  async function testApiCall() {
+    const test = await fetch('/api/hello');
+    console.log(test);
+
+    const data = await test.json();
+
+    console.log(data);
+  }
   return (
     <div className={styles.container}>
       <Head>
@@ -13,6 +21,8 @@ export default function Home() {
         <h1 className={styles.title}>
           Welcome to <a href="https://nextjs.org">Next.js!</a>
         </h1>
+
+        <button onClick={testApiCall}>Click Me!!!</button>
 
         <p className={styles.description}>
           Get started by editing{' '}
