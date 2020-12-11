@@ -8,10 +8,6 @@ type Data = {
 };
 
 export default async (req: NextApiRequest, res: NextApiResponse<Data>) => {
-  const test = await prisma.post.findMany();
-
-  console.log(test);
-  console.log('testtestest');
   res.statusCode = 200;
   res.json({name: 'John Doe'});
 };
