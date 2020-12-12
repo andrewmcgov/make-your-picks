@@ -1,22 +1,12 @@
-// Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import type {NextApiRequest, NextApiResponse} from 'next';
-import {PrismaClient} from '@prisma/client';
+import {PrismaClient, User} from '@prisma/client';
 import bcrypt from 'bcrypt';
+import jwt from 'jsonwebtoken';
+
+import {setCookie} from '../../utilities/cookies';
+import {ErrorResponse} from '../../types';
 
 const prisma = new PrismaClient();
-
-type Data = {
-  name: string;
-};
-
-type RequestData = {
-  email: string;
-  password: string;
-};
-
-type ErrorResponse = {
-  message: string;
-};
 
 function validateEmail(email: string) {
   const re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
@@ -25,7 +15,7 @@ function validateEmail(email: string) {
 
 export default async (
   req: NextApiRequest,
-  res: NextApiResponse<Data | ErrorResponse>
+  res: NextApiResponse<User | ErrorResponse>
 ) => {
   const body = JSON.parse(req.body);
   let email: string = body.email;
@@ -57,11 +47,13 @@ export default async (
     res.json({message: 'Internal server error.'});
   }
 
-  // todo set a cookie using JWT?
-  // https://nextjs.org/docs/api-routes/api-middlewares#extending-the-reqres-objects-with-typescript
-  // const token = jwt.sign({_id: user._id}, process.env.APP_SECRET);
+  const token = jwt.sign({id: user.id}, process.env.APP_SECRET);
 
-  // todo: respond with new user
+  setCookie(res, 'picker_id', token, {
+    httpOnly: true,
+    maxAge: 1000 * 60 * 60 * 24 * 365,
+  });
+
   res.statusCode = 200;
-  res.json({name: 'Test'});
+  res.json(user);
 };
