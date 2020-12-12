@@ -4,14 +4,6 @@ import styles from '../styles/Home.module.css';
 import {CreateUserForm} from '../components';
 
 export default function Home() {
-  async function testApiCall() {
-    const test = await fetch('/api/hello');
-    console.log(test);
-
-    const data = await test.json();
-
-    console.log(data);
-  }
   return (
     <div className={styles.container}>
       <Head>

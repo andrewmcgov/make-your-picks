@@ -5,3 +5,11 @@ export type ErrorResponse = {
 };
 
 export type ClientUser = Omit<User, 'password' | 'resetToken' | 'resetExpiry'>;
+
+export type ClientUserResponse = {
+  currentUser: ClientUser | null;
+};
+
+export enum CacheKey {
+  CurrentUser = 'CURRENT_USER',
+}
