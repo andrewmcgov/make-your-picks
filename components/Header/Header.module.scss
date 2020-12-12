@@ -1,0 +1,24 @@
+.Header {
+  width: 100%;
+  background-color: black;
+  color: white;
+}
+
+.Container {
+  max-width: $desktop-width;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+}
+
+.Heading {
+  margin: 0;
+
+  font-style: italic;
+
+  @include mobile {
+    font-size: 2rem;
+  }
+}

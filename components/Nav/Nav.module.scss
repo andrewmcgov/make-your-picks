@@ -1,0 +1,15 @@
+.Nav {
+  padding-right: 2rem;
+}
+
+.NavItem {
+  padding-left: 3rem;
+  font-style: italic;
+  font-size: 1.8rem;
+}
+
+@include mobile {
+  .Nav {
+    display: none;
+  }
+}
