@@ -1,6 +1,6 @@
 import React from 'react';
 import {useMutation, useQueryCache} from 'react-query';
-import {TextField, Button} from '../../../../components';
+import {TextField, Button, Card} from '../../../../components';
 import {CreateUserResponse} from '../../../../types';
 
 import styles from './AccountForms.module.scss';
@@ -67,7 +67,7 @@ export function AccountForms() {
   }
 
   return (
-    <div>
+    <Card>
       {creating ? (
         <>
           <h2>Create Account</h2>
@@ -130,6 +130,6 @@ export function AccountForms() {
           </Button>
         </p>
       )}
-    </div>
+    </Card>
   );
 }

@@ -10,3 +10,4 @@ export {Page} from './Page';
 export {TextField} from './TextField';
 export {Button} from './Button';
 export {Logout} from './Logout';
+export {Card} from './Card';
