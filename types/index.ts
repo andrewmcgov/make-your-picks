@@ -13,3 +13,7 @@ export type ClientUserResponse = {
 export enum CacheKey {
   CurrentUser = 'CURRENT_USER',
 }
+
+export type CreateUserResponse = {
+  success: true;
+};

@@ -14,3 +14,19 @@
   background-color: black;
   color: white;
 }
+
+.Row {
+  margin-left: 1rem;
+}
+
+.Plain {
+  background-color: white;
+  border: none;
+  padding: 0;
+  color: black;
+  text-decoration: underline;
+}
+
+.Disabled {
+  opacity: 0.8;
+}

@@ -4,7 +4,7 @@ import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 
 import {setCookie} from '../../utilities/cookies';
-import {ErrorResponse} from '../../types';
+import {ErrorResponse, CreateUserResponse} from '../../types';
 
 const prisma = new PrismaClient();
 
@@ -15,13 +15,19 @@ function validateEmail(email: string) {
 
 export default async (
   req: NextApiRequest,
-  res: NextApiResponse<User | ErrorResponse>
+  res: NextApiResponse<CreateUserResponse | ErrorResponse>
 ) => {
   const body = JSON.parse(req.body);
   let email: string = body.email;
-  const username: string = body.username;
+  let username: string = body.username;
   const password: string = body.password;
   const repeatPassword: string = body.repeatPassword;
+  const activationKey: string = body.activationKey;
+
+  if (activationKey !== process.env.ACTIVATION_KEY) {
+    res.statusCode = 400;
+    return res.json({message: 'Incorrect activation key!'});
+  }
 
   // Throw an error if the passwords do not match
   if (password !== repeatPassword) {
@@ -34,6 +40,17 @@ export default async (
   if (!validateEmail(email)) {
     res.statusCode = 400;
     return res.json({message: 'Please provide a valid email!'});
+  } else if (await prisma.user.findUnique({where: {email}})) {
+    res.statusCode = 400;
+    return res.json({message: 'An account with this email already exists!'});
+  }
+
+  if (!username) {
+    res.statusCode = 400;
+    return res.json({message: 'Please provide a username!'});
+  } else if (await prisma.user.findUnique({where: {username}})) {
+    res.statusCode = 400;
+    return res.json({message: 'Username already taken!'});
   }
 
   const hash = await bcrypt.hash(password, 10);
@@ -55,5 +72,5 @@ export default async (
   });
 
   res.statusCode = 200;
-  res.json(user);
+  res.json({success: true});
 };

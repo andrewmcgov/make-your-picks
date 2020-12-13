@@ -1,0 +1,15 @@
+.ButtonWrapper {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.Message {
+  text-align: center;
+}
+
+.Error {
+  background-color: rgba(243, 28, 28, 0.37);
+  border-left: 2px solid rgb(243, 28, 28);
+  padding: 1rem;
+}
