@@ -1,4 +1,4 @@
-import {User} from '@prisma/client';
+import {User, Team} from '@prisma/client';
 
 export type ErrorResponse = {
   message: string;
@@ -16,4 +16,8 @@ export enum CacheKey {
 
 export type CreateUserResponse = {
   success: true;
+};
+
+export type TeamsResponse = {
+  teams: Team[];
 };

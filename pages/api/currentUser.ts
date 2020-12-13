@@ -16,7 +16,7 @@ export default async (
     const id = (jwt.verify(token, process.env.APP_SECRET) as {id: string}).id;
     const user = await prisma.user.findUnique({where: {id: Number(id)}});
     res.statusCode = 200;
-    res.json({
+    return res.json({
       currentUser: {id: user.id, email: user.email, username: user.username},
     });
   }

@@ -15,6 +15,9 @@ export function Nav() {
       <Link href="/account">
         <a className={styles.NavItem}>Account</a>
       </Link>
+      <Link href="/admin">
+        <a className={styles.NavItem}>Admin</a>
+      </Link>
     </nav>
   );
 }

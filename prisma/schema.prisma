@@ -26,4 +26,19 @@ model Team {
   nickName String
   league String
   abr String
+  homeGames Game[] @relation("HomeTeam")
+  awayGames Game[] @relation("AwayTeam")
+}
+
+model Game {
+  id Int @id @default(autoincrement())
+  home Team @relation("HomeTeam", fields: [homeId], references: [id])
+  homeId Int
+  away Team @relation("AwayTeam", fields: [awayId], references: [id])
+  awayId Int
+  start DateTime
+  winnerId String
+  league String
+  week String
+  season String
 }
