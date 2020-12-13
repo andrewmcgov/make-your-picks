@@ -18,3 +18,12 @@ model User {
   resetToken String?
   resetExpiry String?
 }
+
+model Team {
+  id Int @id @default(autoincrement())
+  city String
+  fullName String
+  nickName String
+  league String
+  abr String
+}
