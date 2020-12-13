@@ -7,3 +7,5 @@ export {Layout} from './Layout';
 export {Header} from './Header';
 export {Nav} from './Nav';
 export {Page} from './Page';
+export {TextField} from './TextField';
+export {Button} from './Button';
