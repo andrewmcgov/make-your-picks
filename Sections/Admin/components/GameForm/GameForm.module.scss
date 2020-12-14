@@ -1,4 +1,33 @@
+.Container {
+  display: flex;
+  align-items: center;
+
+  input {
+    font-size: 1.6rem;
+  }
+
+  @include mobile {
+    flex-direction: column;
+  }
+}
+
 .TeamSelect {
-  display: inline-block;
-  padding: 2rem 2rem 2rem 0;
+  padding: 2rem 1rem 2rem 0;
+  width: 100%;
+
+  select {
+    width: 100%;
+  }
+}
+
+.DateTimePicker {
+  width: 100%;
+
+  div {
+    width: 100%;
+  }
+
+  input {
+    width: 100%;
+  }
 }

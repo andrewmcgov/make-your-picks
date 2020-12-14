@@ -37,7 +37,7 @@ model Game {
   away Team @relation("AwayTeam", fields: [awayId], references: [id])
   awayId Int
   start DateTime
-  winnerId String
+  winnerId String?
   league String
   week String
   season String

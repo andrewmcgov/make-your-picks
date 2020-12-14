@@ -8,7 +8,7 @@ interface Props {
   primary?: boolean;
   secondary?: boolean;
   plain?: boolean;
-  onClick?: () => void;
+  onClick?: (event?: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
   row?: boolean;
   disabled?: boolean;
 }
