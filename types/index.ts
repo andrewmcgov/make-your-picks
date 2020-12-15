@@ -1,4 +1,4 @@
-import {User, Team} from '@prisma/client';
+import {User, Team, Game} from '@prisma/client';
 
 export type ErrorResponse = {
   message: string;
@@ -20,4 +20,13 @@ export type CreateUserResponse = {
 
 export type TeamsResponse = {
   teams: Team[];
+};
+
+export type GameWithTeams = Game & {
+  home: Team;
+  away: Team;
+};
+
+export type GamesResponse = {
+  games: GameWithTeams[];
 };

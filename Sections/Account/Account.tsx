@@ -7,6 +7,7 @@ import styles from './Account.module.scss';
 
 export function Account() {
   const user = useCurrentUser();
+
   return (
     <>
       <Head>

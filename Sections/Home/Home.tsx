@@ -1,19 +1,36 @@
 import React from 'react';
 import Head from 'next/head';
 import Link from 'next/link';
+import {useQuery} from 'react-query';
 
-import {useCurrentUser} from '../../components';
+import {useCurrentUser, GameCard} from '../../components';
+import {GamesResponse} from '../../types';
 
 import {Page} from '../../components';
+import styles from './Home.module.scss';
 
 export function Home() {
   const user = useCurrentUser();
+
+  const {data, isLoading} = useQuery<GamesResponse>('games', async () => {
+    const res = await fetch(`http://localhost:3000/api/games`);
+    const data = await res.json();
+    return data;
+  });
 
   const loginLink = user ? null : (
     <p>
       To make your picks, sign in <Link href="/account">here.</Link>
     </p>
   );
+
+  if (!data?.games || isLoading) {
+    return <p>Loading games...</p>;
+  }
+
+  const gamesMarkup = data?.games.map((game) => {
+    return <GameCard key={game.id} game={game} />;
+  });
 
   return (
     <>
@@ -22,7 +39,10 @@ export function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <Page title={'Home'}>{loginLink}</Page>
+      <Page title={'Home'}>
+        {loginLink}
+        <div className={styles.GameGrid}>{gamesMarkup}</div>
+      </Page>
     </>
   );
 }
