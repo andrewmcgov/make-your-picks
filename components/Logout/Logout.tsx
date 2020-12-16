@@ -7,7 +7,7 @@ export function Logout() {
   const cache = useQueryCache();
   const [logout, {isLoading}] = useMutation(
     async () => {
-      const res = await fetch(`http://localhost:3000/api/logout`, {
+      const res = await fetch(`/api/logout`, {
         method: 'POST',
       });
       const data = await res.json();

@@ -13,7 +13,7 @@ export function Home() {
   const user = useCurrentUser();
 
   const {data, isLoading} = useQuery<GamesResponse>('games', async () => {
-    const res = await fetch(`http://localhost:3000/api/games`);
+    const res = await fetch(`/api/games`);
     const data = await res.json();
     return data;
   });

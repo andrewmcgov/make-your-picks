@@ -17,7 +17,7 @@ export function GameForm() {
   const [saved, setSaved] = useState(false);
 
   const {isLoading} = useQuery('teams', async () => {
-    const res = await fetch('http://localhost:3000/api/getTeams');
+    const res = await fetch('/api/getTeams');
     const data = (await res.json()) as TeamsResponse;
 
     if (data.teams) {
@@ -27,7 +27,7 @@ export function GameForm() {
 
   const [createGame, {isLoading: createLoading}] = useMutation(
     async () => {
-      const res = await fetch(`http://localhost:3000/api/createGame`, {
+      const res = await fetch(`/api/createGame`, {
         method: 'POST',
         body: JSON.stringify({home, away, start}),
       });

@@ -15,7 +15,7 @@ export function useCurrentUser() {
 
 export function CurrentUserContextProvider({children}: Props) {
   const {data} = useQuery<ClientUserResponse>('currentUser', async () => {
-    const res = await fetch(`http://localhost:3000/api/currentUser`);
+    const res = await fetch(`/api/currentUser`);
     const data = await res.json();
     return data;
   });

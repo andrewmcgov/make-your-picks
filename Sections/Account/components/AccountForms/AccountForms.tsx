@@ -18,7 +18,7 @@ export function AccountForms() {
 
   const [login, {isLoading: loginLoading}] = useMutation(
     async () => {
-      const res = await fetch(`http://localhost:3000/api/login`, {
+      const res = await fetch(`/api/login`, {
         method: 'POST',
         body: JSON.stringify({email, password}),
       });
@@ -35,7 +35,7 @@ export function AccountForms() {
 
   const [creatUser, {isLoading: creatUserLoading}] = useMutation(
     async () => {
-      const res = await fetch(`http://localhost:3000/api/createUser`, {
+      const res = await fetch(`/api/createUser`, {
         method: 'POST',
         body: JSON.stringify({
           email,
