@@ -8,7 +8,8 @@
     "start": "next start",
     "generate": "npx prisma generate",
     "studio": "npx prisma studio",
-    "migrate": "npx prisma migrate dev --preview-feature "
+    "migrate": "npx prisma migrate dev --preview-feature ",
+    "postinstall": "prisma generate"
   },
   "dependencies": {
     "@date-io/date-fns": "1.3.13",
