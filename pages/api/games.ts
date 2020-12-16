@@ -11,7 +11,7 @@ export default async (
 ) => {
   const games = await prisma.game.findMany({include: {home: true, away: true}});
 
-  // console.log(games);
+  console.log({prisma, games});
 
   res.statusCode = 200;
   res.json({games});
