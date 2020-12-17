@@ -1,11 +1,11 @@
 {
   "env": {
-    "DATABASE_URL": "@picks_database_url",
+    "DATABASE_URL": "@do_db_url",
     "ACTIVATION_KEY": "@picks_activation_key"
   },
   "build": {
     "env": {
-      "DATABASE_URL": "@picks_database_url"
+      "DATABASE_URL": "@do_db_url"
     }
   }
 }
