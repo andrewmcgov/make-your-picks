@@ -1,7 +1,8 @@
 {
   "env": {
     "DATABASE_URL": "@do_db_url",
-    "ACTIVATION_KEY": "@picks_activation_key"
+    "ACTIVATION_KEY": "@picks_activation_key",
+    "APP_SECRET": "@picks_app_secret"
   },
   "build": {
     "env": {
