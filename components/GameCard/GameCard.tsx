@@ -12,7 +12,9 @@ interface Props {
 
 export function GameCard({game}: Props) {
   const user = useCurrentUser();
-  const [pick, setPick] = useState<number>(game.Pick?.[0].teamId || '');
+  const [pick, setPick] = useState<number>(
+    (game.Pick && game.Pick[0] && game.Pick[0].teamId) || ''
+  );
   const [saved, setSaved] = useState(false);
   const [error, setError] = useState(false);
 
