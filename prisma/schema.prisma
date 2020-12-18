@@ -42,3 +42,14 @@ model Game {
   week String
   season String
 }
+
+model Pick {
+  id Int @id @default(autoincrement())
+  game Game @relation(fields: [gameId], references: [id])
+  gameId Int
+  team Team @relation(fields: [teamId], references: [id])
+  teamId Int
+  user User @relation(fields: [userId], references: [id])
+  userId Int
+  correct String?
+}

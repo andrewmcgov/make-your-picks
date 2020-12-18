@@ -1,5 +1,6 @@
 import type {NextApiRequest, NextApiResponse} from 'next';
-import {PrismaClient, GameInclude} from '@prisma/client';
+import {PrismaClient} from '@prisma/client';
+import jwt from 'jsonwebtoken';
 
 import {GamesResponse} from '../../types';
 
@@ -9,9 +10,23 @@ export default async (
   req: NextApiRequest,
   res: NextApiResponse<GamesResponse>
 ) => {
-  const games = await prisma.game.findMany({include: {home: true, away: true}});
+  let games;
+  const token = req.cookies.picker_id;
+  const userId = token
+    ? (jwt.verify(token, process.env.APP_SECRET) as {id: string}).id
+    : undefined;
 
-  console.log({prisma, games});
+  if (userId) {
+    games = await prisma.game.findMany({
+      include: {
+        home: true,
+        away: true,
+        Pick: {where: {userId: Number(userId)}},
+      },
+    });
+  } else {
+    games = await prisma.game.findMany({include: {home: true, away: true}});
+  }
 
   res.statusCode = 200;
   res.json({games});

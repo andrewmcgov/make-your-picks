@@ -1,4 +1,4 @@
-import {User, Team, Game} from '@prisma/client';
+import {User, Team, Game, Pick} from '@prisma/client';
 
 export type ErrorResponse = {
   message: string;
@@ -25,6 +25,7 @@ export type TeamsResponse = {
 export type GameWithTeams = Game & {
   home: Team;
   away: Team;
+  Pick?: Pick;
 };
 
 export type GamesResponse = {

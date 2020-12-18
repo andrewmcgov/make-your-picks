@@ -61,13 +61,24 @@ export function GameForm() {
     <p>Loading teams...</p>;
   }
 
-  const teamOptions = teams.map((team) => {
-    return (
-      <option key={team.id} value={team.id}>
-        {team.fullName}
-      </option>
-    );
-  });
+  const teamOptions = teams
+    .sort((a, b) => {
+      if (a.fullName < b.fullName) {
+        return -1;
+      }
+      if (a.fullName > b.fullName) {
+        return 1;
+      }
+
+      return 0;
+    })
+    .map((team) => {
+      return (
+        <option key={team.id} value={team.id}>
+          {team.fullName}
+        </option>
+      );
+    });
 
   return (
     <Card>
