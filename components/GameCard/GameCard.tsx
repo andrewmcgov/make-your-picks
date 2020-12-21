@@ -1,6 +1,8 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState} from 'react';
 import {useMutation} from 'react-query';
+import moment from 'moment';
 
+import {classNames} from '../../utilities/classNames';
 import {Card, useCurrentUser} from '../../components';
 import {GameWithTeams} from '../../types';
 
@@ -11,12 +13,11 @@ interface Props {
 }
 
 export function GameCard({game}: Props) {
+  const originalPick = (game.Pick && game.Pick[0] && game.Pick[0].teamId) || '';
   const user = useCurrentUser();
-  const [pick, setPick] = useState<number>(
-    (game.Pick && game.Pick[0] && game.Pick[0].teamId) || ''
-  );
+  const [pick, setPick] = useState<number>(originalPick);
   const [saved, setSaved] = useState(false);
-  const [error, setError] = useState(false);
+  const [error, setError] = useState('');
 
   const {id, awayId, homeId, home, away, start} = game;
 
@@ -30,7 +31,8 @@ export function GameCard({game}: Props) {
       if (data.success) {
         setSaved(true);
       } else {
-        setError(true);
+        setError(data.message || 'Error saving pick');
+        setPick(originalPick);
       }
       return data;
     },
@@ -41,9 +43,9 @@ export function GameCard({game}: Props) {
     }
   );
 
-  function handleSavePick(pick) {
+  function handleSavePick(pick: number) {
     setSaved(false);
-    setError(false);
+    setError('');
     setPick(pick);
     savePick({pick});
   }
@@ -76,20 +78,23 @@ export function GameCard({game}: Props) {
           />
           <label htmlFor={`home-${id}`}>{game.home.abr.toUpperCase()}</label>
         </div>
-        {saved && <p className={styles.Success}>Pick saved!</p>}
-        {error && <p className={styles.Success}>Error saving pick!</p>}
       </div>
+      {saved && <p className={styles.Success}>Pick saved!</p>}
+      {error && <p className={styles.Error}>{error}</p>}
     </>
   ) : null;
 
   return (
-    <Card>
+    <Card flush>
       <div className={styles.Matchup}>
-        <span>{away.city}</span>
-        <span>@</span>
-        <span>{home.city}</span>
+        <span className={classNames(styles.Away, `NFL-${game.away.abr}`)}>
+          {away.city}
+        </span>
+        <span className={classNames(styles.Home, `NFL-${game.home.abr}`)}>
+          {home.city}
+        </span>
       </div>
-      <p className={styles.Date}>{new Date(start).toLocaleString()}</p>
+      <p className={styles.Date}>{moment(game.start).calendar()}</p>
       {pickMarkup}
     </Card>
   );

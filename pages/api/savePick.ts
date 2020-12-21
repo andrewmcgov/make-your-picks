@@ -35,6 +35,12 @@ export default async (
       return res.json({message: 'Could not find matching game for this pick'});
     }
 
+    // Prisma types the start date as a js Date, but it returns a date string
+    if (Date.parse((game.start as unknown) as string) < Date.now()) {
+      res.statusCode = 400;
+      return res.json({message: 'This game has already started!'});
+    }
+
     const team = await prisma.team.findUnique({where: {id: Number(teamId)}});
 
     if (!team) {
