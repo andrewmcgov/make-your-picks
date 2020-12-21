@@ -1,6 +1,7 @@
 import React from 'react';
 
 import {Header} from '../Header';
+import {MobileNav} from '../MobileNav';
 import styles from '../../styles/Layout.module.scss';
 
 interface Props {
@@ -12,6 +13,7 @@ export function Layout({children}: Props) {
     <>
       <Header />
       <div className={styles.LayoutContainer}>{children}</div>
+      <MobileNav />
     </>
   );
 }

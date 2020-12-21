@@ -12,3 +12,4 @@ export {Button} from './Button';
 export {Logout} from './Logout';
 export {Card} from './Card';
 export {GameCard} from './GameCard';
+export {MobileNav} from './MobileNav';

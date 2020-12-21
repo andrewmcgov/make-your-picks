@@ -1,0 +1,54 @@
+.Trigger {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  height: 50px;
+  width: 50px;
+  margin: 0 2rem 2rem 0;
+  padding: 1rem;
+  background: black;
+  color: white;
+  border-radius: 50%;
+  border: none;
+  transform: rotate(90deg);
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
+  transition: all 0.5s;
+
+  @include desktop {
+    display: none;
+  }
+}
+
+.TriggerOpen {
+  transform: rotate(450deg);
+}
+
+.MobileNav {
+  display: block;
+  position: absolute;
+  bottom: 0;
+  width: 70%;
+  left: -100%;
+  transition: all 0.5s;
+
+  @include desktop {
+    display: none;
+  }
+}
+
+.MobileNavOpen {
+  display: block;
+  position: absolute;
+  left: 0;
+}
+
+.InnerNav {
+  color: black;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  a {
+    padding: 1rem;
+  }
+}
