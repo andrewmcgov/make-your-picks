@@ -1,9 +1,8 @@
 import React, {useState} from 'react';
 import Link from 'next/link';
-
 import {Card} from '../Card';
 import {useCurrentUser} from '../CurrentUserContextProvider';
-import {classNames} from '../../utilities/classNames';
+import {classNames} from 'utilities/classNames';
 import styles from './MobileNav.module.scss';
 
 export function MobileNav() {

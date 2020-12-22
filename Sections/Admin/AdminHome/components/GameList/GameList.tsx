@@ -3,8 +3,8 @@ import {useQuery} from 'react-query';
 import moment from 'moment';
 import Link from 'next/link';
 
-import {GamesResponse} from '../../../../../types';
-import {Card} from '../../../../../components';
+import {GamesResponse} from 'types';
+import {Card} from 'components';
 
 import styles from './GameList.module.scss';
 

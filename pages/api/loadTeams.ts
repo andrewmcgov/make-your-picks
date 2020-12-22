@@ -1,8 +1,7 @@
 import type {NextApiRequest, NextApiResponse} from 'next';
 import {PrismaClient} from '@prisma/client';
 import jwt from 'jsonwebtoken';
-
-import {nflTeams} from '../../data/nflTeams';
+import {nflTeams} from 'data/nflTeams';
 
 const prisma = new PrismaClient();
 

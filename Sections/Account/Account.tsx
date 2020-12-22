@@ -1,6 +1,6 @@
 import React from 'react';
 import Head from 'next/head';
-import {useCurrentUser, Page, Logout} from '../../components';
+import {useCurrentUser, Page, Logout} from 'components';
 
 import {AccountForms} from './components';
 import styles from './Account.module.scss';

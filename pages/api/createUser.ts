@@ -3,8 +3,8 @@ import {PrismaClient, User} from '@prisma/client';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 
-import {setCookie} from '../../utilities/cookies';
-import {ErrorResponse, CreateUserResponse} from '../../types';
+import {setCookie} from 'utilities/cookies';
+import {ErrorResponse, CreateUserResponse} from 'types';
 
 const prisma = new PrismaClient();
 

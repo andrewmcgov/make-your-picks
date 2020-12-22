@@ -2,9 +2,8 @@ import type {NextApiRequest, NextApiResponse} from 'next';
 import {PrismaClient} from '@prisma/client';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
-
-import {setCookie} from '../../utilities/cookies';
-import {ErrorResponse} from '../../types';
+import {setCookie} from 'utilities/cookies';
+import {ErrorResponse} from 'types';
 
 const prisma = new PrismaClient();
 

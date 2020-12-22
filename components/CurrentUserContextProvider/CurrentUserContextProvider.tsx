@@ -1,7 +1,6 @@
 import React, {createContext, useContext} from 'react';
 import {useQuery} from 'react-query';
-
-import {ClientUserResponse, ClientUser} from '../../types';
+import {ClientUserResponse, ClientUser} from 'types';
 
 interface Props {
   children: JSX.Element;

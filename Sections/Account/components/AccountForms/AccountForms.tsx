@@ -1,8 +1,6 @@
 import React from 'react';
 import {useMutation, useQueryCache} from 'react-query';
-import {TextField, Button, Card} from '../../../../components';
-import {CreateUserResponse} from '../../../../types';
-
+import {TextField, Button, Card} from 'components';
 import styles from './AccountForms.module.scss';
 
 export function AccountForms() {

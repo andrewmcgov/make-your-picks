@@ -1,7 +1,6 @@
 import React from 'react';
 import Head from 'next/head';
-
-import {Page, useCurrentUser} from '../../../components';
+import {Page, useCurrentUser} from 'components';
 import {GameList} from './components';
 import {GameForm} from '../components';
 

@@ -2,7 +2,7 @@ import React from 'react';
 
 import {Header} from '../Header';
 import {MobileNav} from '../MobileNav';
-import styles from '../../styles/Layout.module.scss';
+import styles from './Layout.module.scss';
 
 interface Props {
   children: JSX.Element;
