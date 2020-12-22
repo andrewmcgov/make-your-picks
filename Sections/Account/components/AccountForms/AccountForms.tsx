@@ -68,6 +68,10 @@ export function AccountForms() {
       {creating ? (
         <>
           <h2>Create Account</h2>
+          <p>
+            I have not made the password reset flow yet, so please choose a
+            unique password that you will remember.
+          </p>
           {errorMessage && <p className={styles.Error}>{errorMessage}</p>}
           <TextField value={email} label="Email" onChange={setEmail} />
           <TextField value={username} label="Username" onChange={setUsername} />

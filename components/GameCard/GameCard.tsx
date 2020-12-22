@@ -1,4 +1,5 @@
 import React, {useState} from 'react';
+import Link from 'next/link';
 import {useMutation} from 'react-query';
 import moment from 'moment';
 
@@ -82,7 +83,14 @@ export function GameCard({game}: Props) {
       {saved && <p className={styles.Success}>Pick saved!</p>}
       {error && <p className={styles.Error}>{error}</p>}
     </>
-  ) : null;
+  ) : (
+    <p className={styles.LoginMessage}>
+      To make your pick for this game,{' '}
+      <a className={styles.SignInLink}>
+        <Link href="/account">login here.</Link>
+      </a>
+    </p>
+  );
 
   return (
     <Card flush>

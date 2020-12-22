@@ -18,15 +18,6 @@ export function Home() {
     return data;
   });
 
-  const loginLink = user ? null : (
-    <p>
-      To make your picks, sign in or create an account{' '}
-      <a className={styles.SignInLink}>
-        <Link href="/account">here.</Link>
-      </a>
-    </p>
-  );
-
   if (!data?.games || isLoading) {
     return <p>Loading games...</p>;
   }
@@ -43,7 +34,6 @@ export function Home() {
       </Head>
 
       <Page title={'Home'}>
-        {loginLink}
         <div className={styles.GameGrid}>{gamesMarkup}</div>
       </Page>
     </>
