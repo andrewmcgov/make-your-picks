@@ -2,10 +2,9 @@ import React, {useState} from 'react';
 import {useRouter} from 'next/router';
 import Head from 'next/head';
 import {useQuery, useMutation} from 'react-query';
-
+import {Page, Card, Button} from 'components';
+import {GameResponse} from 'types';
 import {GameForm} from '../../components';
-import {Page, Card, Button} from '../../../../components';
-import {GameResponse} from '../../../../types';
 
 export function AdminGame() {
   const router = useRouter();

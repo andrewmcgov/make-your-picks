@@ -1,7 +1,6 @@
 import type {NextApiRequest, NextApiResponse} from 'next';
 import {PrismaClient} from '@prisma/client';
-
-import {GameResponse, GameWithTeams} from '../../types';
+import {GameResponse, GameWithTeams} from 'types';
 
 const prisma = new PrismaClient();
 

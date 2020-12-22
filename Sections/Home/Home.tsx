@@ -3,10 +3,10 @@ import Head from 'next/head';
 import Link from 'next/link';
 import {useQuery} from 'react-query';
 
-import {useCurrentUser, GameCard} from '../../components';
-import {GamesResponse} from '../../types';
+import {useCurrentUser, GameCard} from 'components';
+import {GamesResponse} from 'types';
 
-import {Page} from '../../components';
+import {Page} from 'components';
 import styles from './Home.module.scss';
 
 export function Home() {

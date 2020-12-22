@@ -2,9 +2,9 @@ import React, {useState} from 'react';
 import {useMutation} from 'react-query';
 import moment from 'moment';
 
-import {classNames} from '../../utilities/classNames';
-import {Card, useCurrentUser} from '../../components';
-import {GameWithTeams} from '../../types';
+import {classNames} from 'utilities/classNames';
+import {Card, useCurrentUser} from 'components';
+import {GameWithTeams} from 'types';
 
 import styles from './GameCard.module.scss';
 

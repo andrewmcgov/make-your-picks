@@ -1,7 +1,6 @@
 import type {NextApiRequest, NextApiResponse} from 'next';
-
-import {setCookie} from '../../utilities/cookies';
-import {ErrorResponse} from '../../types';
+import {setCookie} from 'utilities/cookies';
+import {ErrorResponse} from 'types';
 
 type SuccessResponse = {
   success: true;

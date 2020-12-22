@@ -3,14 +3,10 @@ import {useQuery, useMutation} from 'react-query';
 import {Team} from '@prisma/client';
 import {DateTimePicker, MuiPickersUtilsProvider} from '@material-ui/pickers';
 import DateFnsUtils from '@date-io/date-fns';
-
-import {Card, Button} from '../../../../components';
-import {TeamsResponse} from '../../../../types';
-import {weeks} from '../../../../data/weeks';
-
+import {Card, Button} from 'components';
+import {TeamsResponse, GameWithTeams} from 'types';
+import {weeks} from 'data/weeks';
 import styles from './GameForm.module.scss';
-
-import {GameWithTeams} from '../../../../types';
 
 interface Props {
   game?: GameWithTeams;

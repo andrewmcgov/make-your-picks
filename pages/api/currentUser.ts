@@ -1,8 +1,7 @@
 import type {NextApiRequest, NextApiResponse} from 'next';
 import {PrismaClient} from '@prisma/client';
 import jwt from 'jsonwebtoken';
-
-import {ClientUserResponse} from '../../types';
+import {ClientUserResponse} from 'types';
 
 const prisma = new PrismaClient();
 

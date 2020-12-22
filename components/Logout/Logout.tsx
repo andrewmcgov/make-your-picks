@@ -1,6 +1,5 @@
 import React from 'react';
 import {useMutation, useQueryCache} from 'react-query';
-
 import {Button} from '../Button';
 
 export function Logout() {
