@@ -16,7 +16,10 @@ export default async (
     ? (jwt.verify(token, process.env.APP_SECRET) as {id: string}).id
     : undefined;
 
-  if (userId) {
+  const body = req.body && JSON.parse(req.body);
+  let adminPage: string = body?.adminPage;
+
+  if (userId && !adminPage) {
     games = await prisma.game.findMany({
       include: {
         home: true,

@@ -6,14 +6,24 @@ import DateFnsUtils from '@date-io/date-fns';
 
 import {Card, Button} from '../../../../components';
 import {TeamsResponse} from '../../../../types';
+import {weeks} from '../../../../data/weeks';
 
 import styles from './GameForm.module.scss';
 
-export function GameForm() {
+import {GameWithTeams} from '../../../../types';
+
+interface Props {
+  game?: GameWithTeams;
+}
+
+export function GameForm({game}: Props) {
   const [teams, setTeams] = useState<Team[]>([]);
-  const [home, setHome] = useState('');
-  const [away, setAway] = useState('');
-  const [start, setStart] = useState(new Date());
+  const [home, setHome] = useState(game?.home.id || '');
+  const [away, setAway] = useState(game?.away.id || '');
+  const [week, setWeek] = useState(game?.week || '16');
+  const [start, setStart] = useState(
+    game?.start ? new Date(game.start) : new Date()
+  );
   const [saved, setSaved] = useState(false);
 
   const {isLoading} = useQuery('teams', async () => {
@@ -25,28 +35,38 @@ export function GameForm() {
     }
   });
 
-  const [createGame, {isLoading: createLoading}] = useMutation(
-    async () => {
-      const res = await fetch(`/api/createGame`, {
-        method: 'POST',
-        body: JSON.stringify({home, away, start}),
-      });
-      const data = await res.json();
-      if (data.success) {
-        setSaved(true);
-      }
-      return data;
-    },
-    {
-      onSuccess: () => {
-        // cache.invalidateQueries('currentUser');
-      },
+  const [createGame, {isLoading: createLoading}] = useMutation(async () => {
+    const res = await fetch(`/api/createGame`, {
+      method: 'POST',
+      body: JSON.stringify({home, away, start, week}),
+    });
+    const data = await res.json();
+    if (data.success) {
+      setSaved(true);
     }
-  );
+    return data;
+  });
+
+  const [editGame, {isLoading: editLoading}] = useMutation(async () => {
+    const res = await fetch(`/api/editGame`, {
+      method: 'POST',
+      body: JSON.stringify({home, away, start, week, id: game?.id}),
+    });
+    const data = await res.json();
+    if (data.success) {
+      setSaved(true);
+    }
+    return data;
+  });
 
   function handleCreatGame(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
     e.preventDefault();
-    createGame();
+
+    if (game) {
+      editGame();
+    } else {
+      createGame();
+    }
   }
 
   function resetForm(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
@@ -82,7 +102,7 @@ export function GameForm() {
 
   return (
     <Card>
-      <h3>Add Game</h3>
+      <h3>{game ? 'Edit game' : 'Add game'}</h3>
 
       <form>
         <div className={styles.Container}>
@@ -116,6 +136,23 @@ export function GameForm() {
             <MuiPickersUtilsProvider utils={DateFnsUtils}>
               <DateTimePicker value={start} onChange={setStart} />
             </MuiPickersUtilsProvider>
+          </div>
+          <div className={styles.WeekSelect}>
+            <div>
+              <label htmlFor="week-select">Week</label>
+            </div>
+            <select
+              name="week"
+              id="week-select"
+              value={week}
+              onChange={(e) => setWeek(e.target.value)}
+            >
+              {weeks.map((week) => (
+                <option key={week} value={week}>
+                  {week}
+                </option>
+              ))}
+            </select>
           </div>
         </div>
         <Button onClick={resetForm} secondary>

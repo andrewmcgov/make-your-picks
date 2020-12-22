@@ -1,0 +1,9 @@
+.Wrapper {
+  margin-top: 2rem;
+}
+
+.GameRow {
+  display: grid;
+  grid-template-columns: 1fr repeat(2, 3fr) 2fr;
+  padding: 0.5rem 0;
+}

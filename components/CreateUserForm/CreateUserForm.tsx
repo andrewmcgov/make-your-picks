@@ -10,9 +10,6 @@ export function CreateUserForm() {
       method: 'POST',
       body: JSON.stringify({password, email, repeatPassword}),
     });
-
-    console.log(result);
-    console.log(result);
   }
 
   return (

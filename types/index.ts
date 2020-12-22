@@ -31,3 +31,7 @@ export type GameWithTeams = Game & {
 export type GamesResponse = {
   games: GameWithTeams[];
 };
+
+export type GameResponse = {
+  game: GameWithTeams;
+};

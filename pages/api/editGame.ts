@@ -14,13 +14,15 @@ export default async (
   let awayId: string = body.away;
   const start: string = body.start;
   const week: string = body.week;
+  const gameId: string = body.id;
 
   if (token) {
     const id = (jwt.verify(token, process.env.APP_SECRET) as {id: string}).id;
     const user = await prisma.user.findUnique({where: {id: Number(id)}});
 
     if (user.email === 'test@test.com') {
-      const game = await prisma.game.create({
+      const game = await prisma.game.update({
+        where: {id: Number(gameId)},
         data: {
           home: {connect: {id: Number(homeId)}},
           away: {connect: {id: Number(awayId)}},

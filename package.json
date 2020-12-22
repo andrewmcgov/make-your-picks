@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "prisma migrate deploy --preview-feature && next build",
     "start": "next start",
     "generate": "npx prisma generate",
     "studio": "npx prisma studio",
