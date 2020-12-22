@@ -20,7 +20,10 @@ export function Home() {
 
   const loginLink = user ? null : (
     <p>
-      To make your picks, sign in <Link href="/account">here.</Link>
+      To make your picks, sign in or create an account{' '}
+      <a className={styles.SignInLink}>
+        <Link href="/account">here.</Link>
+      </a>
     </p>
   );
 
