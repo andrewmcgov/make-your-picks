@@ -16,7 +16,7 @@ export default async (
     const id = (jwt.verify(token, process.env.APP_SECRET) as {id: string}).id;
     const user = await prisma.user.findUnique({where: {id: Number(id)}});
 
-    if (user.email === 'test@test.com') {
+    if (user.id <= 2) {
       nflTeams.forEach(async (team) => {
         await prisma.team.create({data: team});
       });

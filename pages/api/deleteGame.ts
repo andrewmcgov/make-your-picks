@@ -16,7 +16,7 @@ export default async (
     const id = (jwt.verify(token, process.env.APP_SECRET) as {id: string}).id;
     const user = await prisma.user.findUnique({where: {id: Number(id)}});
 
-    if (user.email === 'test@test.com') {
+    if (user.id <= 2) {
       const test = await prisma.game.delete({where: {id: Number(gameId)}});
 
       console.log(test);

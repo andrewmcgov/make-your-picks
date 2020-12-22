@@ -18,8 +18,8 @@ export default async (
   if (token) {
     const id = (jwt.verify(token, process.env.APP_SECRET) as {id: string}).id;
     const user = await prisma.user.findUnique({where: {id: Number(id)}});
-
-    if (user.email === 'test@test.com') {
+    user.id <= 2;
+    if (user.id <= 2) {
       const game = await prisma.game.create({
         data: {
           home: {connect: {id: Number(homeId)}},
