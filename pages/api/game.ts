@@ -1,7 +1,7 @@
 import type {NextApiRequest, NextApiResponse} from 'next';
 import {PrismaClient} from '@prisma/client';
 
-import {GameResponse} from '../../types';
+import {GameResponse, GameWithTeams} from '../../types';
 
 const prisma = new PrismaClient();
 
@@ -28,5 +28,5 @@ export default async (
   });
 
   res.statusCode = 200;
-  res.json({game: game ? game : null});
+  res.json({game: game ? ((game as unknown) as GameWithTeams) : null});
 };
