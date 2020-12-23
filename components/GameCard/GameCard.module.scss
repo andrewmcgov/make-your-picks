@@ -25,32 +25,13 @@
   font-size: 1.2rem;
 }
 
-.Pick {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.Option {
-  padding: 1rem;
-
-  label {
-    padding-left: 0.5rem;
-  }
-}
-
 .Date {
   text-align: center;
   margin: 1rem;
 }
 
-.Success {
-  text-align: center;
-  margin: 0 1rem 1rem 1rem;
-}
-
-.Error {
-  text-align: center;
-  margin: 0 1rem 1rem 1rem;
-  color: rgb(214, 4, 4);
+.Content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }

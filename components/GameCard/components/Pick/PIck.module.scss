@@ -1,0 +1,29 @@
+.Pick {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 1rem 1rem 1rem;
+}
+
+.Option {
+  // padding: 1rem;
+  border: 1px solid black;
+
+  label {
+    padding: 1rem;
+  }
+  input {
+    padding: 1rem;
+  }
+}
+
+.Success {
+  text-align: center;
+  margin: 0 1rem 1rem 1rem;
+}
+
+.Error {
+  text-align: center;
+  margin: 0 1rem 1rem 1rem;
+  color: rgb(214, 4, 4);
+}

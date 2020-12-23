@@ -1,0 +1,34 @@
+.Radio {
+  opacity: 0;
+  position: absolute;
+
+  &:focus + .RadioLabel {
+    outline: rgba(77, 97, 171, 0.5) auto 3px;
+  }
+
+  &:checked + .RadioLabel {
+    border: 2px solid rgba(0, 0, 0, 1);
+    color: rgba(0, 0, 0, 1);
+    font-weight: bold;
+  }
+}
+
+.RadioLabel {
+  padding: 1rem;
+  margin: 0 1rem;
+  display: flex;
+  align-items: center;
+  border: 2px solid rgb(63, 63, 63);
+  color: rgb(63, 63, 63);
+  border-radius: 5px;
+}
+
+.Check {
+  padding-right: 1rem;
+  display: flex;
+  align-items: center;
+}
+
+.Spinner {
+  padding-right: 1rem;
+}

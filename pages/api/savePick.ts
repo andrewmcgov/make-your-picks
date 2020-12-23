@@ -3,6 +3,8 @@ import {PrismaClient} from '@prisma/client';
 import jwt from 'jsonwebtoken';
 import {ErrorResponse} from 'types';
 
+import {wait} from 'utilities/wait';
+
 const prisma = new PrismaClient();
 
 export default async (
@@ -13,6 +15,8 @@ export default async (
   const body = JSON.parse(req.body);
   let gameId: string = body.gameId;
   let teamId: string = body.teamId;
+
+  await wait(1000);
 
   if (!gameId || !teamId) {
     res.statusCode = 400;
