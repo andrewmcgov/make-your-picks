@@ -9,3 +9,18 @@
     grid-template-columns: 1fr;
   }
 }
+
+.WeekSelect {
+  display: flex;
+  align-items: center;
+}
+
+.WeekSelectLabel {
+  padding-right: 1rem;
+}
+
+.NoGamesFound {
+  text-align: center;
+  font-size: 2.3rem;
+  padding: 3rem 0;
+}

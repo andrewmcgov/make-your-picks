@@ -17,9 +17,7 @@ export default async (
     const user = await prisma.user.findUnique({where: {id: Number(id)}});
 
     if (user.id <= 2) {
-      const test = await prisma.game.delete({where: {id: Number(gameId)}});
-
-      console.log(test);
+      await prisma.game.delete({where: {id: Number(gameId)}});
 
       res.statusCode = 200;
       return res.json({

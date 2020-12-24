@@ -16,15 +16,24 @@ export default async (
     : undefined;
 
   const body = req.body && JSON.parse(req.body);
-  let adminPage: string = body?.adminPage;
+  const adminPage: string = body?.adminPage;
+  const week = body?.week ? body.week : '16';
 
-  if (userId && !adminPage) {
+  if (!adminPage) {
     games = await prisma.game.findMany({
-      include: {
-        home: true,
-        away: true,
-        Pick: {where: {userId: Number(userId)}},
+      where: {
+        week,
       },
+      include: userId
+        ? {
+            home: true,
+            away: true,
+            Pick: {where: {userId: Number(userId)}},
+          }
+        : {
+            home: true,
+            away: true,
+          },
     });
   } else {
     games = await prisma.game.findMany({include: {home: true, away: true}});

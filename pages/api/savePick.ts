@@ -16,8 +16,6 @@ export default async (
   let gameId: string = body.gameId;
   let teamId: string = body.teamId;
 
-  await wait(1000);
-
   if (!gameId || !teamId) {
     res.statusCode = 400;
     return res.json({message: 'You must provide a game and team.'});

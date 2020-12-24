@@ -11,8 +11,6 @@ export function AdminGame() {
   const id = router.query.id;
   const [showDeleteButton, setShowDeleteButton] = useState(false);
 
-  console.log(id);
-
   const {data} = useQuery<GameResponse>(['game', id], async () => {
     const res = await fetch(`/api/game`, {
       method: 'POST',

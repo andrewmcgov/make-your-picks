@@ -39,7 +39,7 @@ export function RadioButton({
       <label className={styles.RadioLabel} htmlFor={id}>
         {!loading && checked && (
           <div className={styles.Check}>
-            <FiCheck size="1.6rem" />
+            <FiCheck size="16px" />
           </div>
         )}
         {loading && checked && (
