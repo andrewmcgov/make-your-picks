@@ -4,7 +4,7 @@ import moment from 'moment';
 import {classNames} from 'utilities/classNames';
 import {Card, useCurrentUser} from 'components';
 import {GameWithTeams} from 'types';
-import {Pick} from './components';
+import {Pick, ClosedPick} from './components';
 
 import styles from './GameCard.module.scss';
 
@@ -29,6 +29,7 @@ export function GameCard({game}: Props) {
   );
 
   const pickMarkup = user && !gameStarted ? <Pick game={game} /> : null;
+  const closedPick = gameStarted ? <ClosedPick game={game} /> : null;
 
   return (
     <Card flush>
@@ -44,6 +45,7 @@ export function GameCard({game}: Props) {
         <p className={styles.Date}>{moment(start).calendar()}</p>
         {loginMessage}
         {pickMarkup}
+        {closedPick}
       </div>
     </Card>
   );

@@ -1,8 +1,7 @@
 import React, {useState} from 'react';
-import Link from 'next/link';
-import {useCurrentUser, RadioButton, Spinner} from 'components';
+import {RadioButton} from 'components';
 import {useMutation} from 'react-query';
-
+import {FiUnlock} from 'react-icons/fi';
 import styles from './Pick.module.scss';
 import {GameWithTeams} from 'types';
 
@@ -12,7 +11,7 @@ interface Props {
 
 export function Pick({game}: Props) {
   const originalPick = (game.Pick && game.Pick[0] && game.Pick[0].teamId) || '';
-  const [pick, setPick] = useState<number>(originalPick);
+  const [pick, setPick] = useState(originalPick);
   const [error, setError] = useState('');
   const {id, awayId, homeId, home, away, start} = game;
 
@@ -39,6 +38,9 @@ export function Pick({game}: Props) {
 
   return (
     <>
+      <div className={styles.Icon}>
+        <FiUnlock />
+      </div>
       <div className={styles.Pick}>
         <RadioButton
           id={`away-${id}`}

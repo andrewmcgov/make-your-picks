@@ -25,7 +25,7 @@ export type TeamsResponse = {
 export type GameWithTeams = Game & {
   home: Team;
   away: Team;
-  Pick?: Pick;
+  Pick?: (Pick & {team: Team})[] & {team: Team};
 };
 
 export type GamesResponse = {
