@@ -25,6 +25,7 @@ export function AccountForms() {
     },
     {
       onSuccess: () => {
+        cache.invalidateQueries('games', {refetchInactive: true});
         cache.invalidateQueries('currentUser');
       },
     }

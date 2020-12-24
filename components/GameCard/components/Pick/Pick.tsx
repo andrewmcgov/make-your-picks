@@ -67,7 +67,6 @@ export function Pick({game}: Props) {
           loading={isLoading}
         />
       </div>
-      {/* {saved && <p className={styles.Success}>Pick saved!</p>} */}
       {error && <p className={styles.Error}>{error}</p>}
     </>
   );
