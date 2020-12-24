@@ -74,7 +74,12 @@ export function AccountForms() {
             unique password that you will remember.
           </p>
           {errorMessage && <p className={styles.Error}>{errorMessage}</p>}
-          <TextField value={email} label="Email" onChange={setEmail} />
+          <TextField
+            type="email"
+            value={email}
+            label="Email"
+            onChange={setEmail}
+          />
           <TextField value={username} label="Username" onChange={setUsername} />
           <TextField
             value={password}
@@ -98,7 +103,12 @@ export function AccountForms() {
         <>
           <h2>Login</h2>
           {errorMessage && <p className={styles.Error}>{errorMessage}</p>}
-          <TextField value={email} label="Email" onChange={setEmail} />
+          <TextField
+            type="email"
+            value={email}
+            label="Email"
+            onChange={setEmail}
+          />
           <TextField
             value={password}
             label="Password"

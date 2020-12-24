@@ -19,6 +19,13 @@ export default async (
   let email: string = body.email;
   const password: string = body.password;
 
+  if (!email || !password) {
+    res.statusCode = 400;
+    return res.json({message: 'Must provide email and password'});
+  }
+
+  email = email.toLowerCase().trim();
+
   const user = await prisma.user.findUnique({where: {email}});
 
   if (!user) {
