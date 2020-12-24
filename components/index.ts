@@ -16,3 +16,4 @@ export {RadioButton} from './RadioButton';
 export {Spinner} from './Spinner';
 export {SkeletonCard} from './SkeletonCard';
 export {Select} from './Select';
+export {Footer} from './Footer';

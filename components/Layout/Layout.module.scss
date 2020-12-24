@@ -1,3 +1,10 @@
+.LayoutWrapper {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
 .LayoutContainer {
   max-width: $desktop-width;
   margin: 0 auto;

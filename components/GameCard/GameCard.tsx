@@ -19,14 +19,15 @@ export function GameCard({game}: Props) {
 
   const gameStarted = Date.parse((start as unknown) as string) < Date.now();
 
-  const loginMessage = user ? null : (
-    <p className={styles.LoginMessage}>
-      To make your pick for this game,{' '}
-      <a className={styles.SignInLink}>
-        <Link href="/account">login here.</Link>
-      </a>
-    </p>
-  );
+  const loginMessage =
+    user || gameStarted ? null : (
+      <p className={styles.LoginMessage}>
+        To make your pick for this game,{' '}
+        <a className={styles.SignInLink}>
+          <Link href="/account">login here.</Link>
+        </a>
+      </p>
+    );
 
   const pickMarkup = user && !gameStarted ? <Pick game={game} /> : null;
   const closedPick = gameStarted ? <ClosedPick game={game} /> : null;
