@@ -36,3 +36,6 @@ yarn-error.log*
 
 # dev database
 prisma/dev.db
+
+# dev only api endpoint 
+pages/api/admin.ts

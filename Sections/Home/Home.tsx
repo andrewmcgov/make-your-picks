@@ -1,8 +1,8 @@
 import React, {useState} from 'react';
 import Head from 'next/head';
 import {useQuery} from 'react-query';
-import {weeks} from 'data/weeks';
-import {GameCard, Page, SkeletonCard} from 'components';
+import {weekOptions} from 'data/weeks';
+import {GameCard, Page, SkeletonCard, Select} from 'components';
 import {GamesResponse} from 'types';
 
 import styles from './Home.module.scss';
@@ -24,21 +24,13 @@ export function Home() {
 
   const selectMarkup = (
     <div className={styles.WeekSelect}>
-      <label className={styles.WeekSelectLabel} htmlFor="week-select">
-        Select week/round:
-      </label>
-      <select
+      <Select
         name="week"
         id="week-select"
         value={week}
-        onChange={(e) => setWeek(e.target.value)}
-      >
-        {weeks.map((week) => (
-          <option key={week} value={week}>
-            {week}
-          </option>
-        ))}
-      </select>
+        onChange={setWeek}
+        options={weekOptions}
+      />
     </div>
   );
 
