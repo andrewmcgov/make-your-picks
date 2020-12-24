@@ -37,10 +37,11 @@ model Game {
   away Team @relation("AwayTeam", fields: [awayId], references: [id])
   awayId Int
   start DateTime
-  winnerId String?
+  winnerId Int?
   league String
   week String
   season String
+  picks Pick[]
 }
 
 model Pick {
@@ -51,5 +52,6 @@ model Pick {
   teamId Int
   user User @relation(fields: [userId], references: [id])
   userId Int
-  correct String?
+  correct Boolean?
+  closed Boolean?
 }

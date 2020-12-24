@@ -28,7 +28,7 @@ export default async (
         ? {
             home: true,
             away: true,
-            Pick: {where: {userId: Number(userId)}, include: {team: true}},
+            picks: {where: {userId: Number(userId)}, include: {team: true}},
           }
         : {
             home: true,

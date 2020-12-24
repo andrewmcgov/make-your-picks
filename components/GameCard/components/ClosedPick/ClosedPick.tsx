@@ -8,7 +8,7 @@ interface Props {
 }
 
 export function ClosedPick({game}: Props) {
-  const pick = (game.Pick && game.Pick[0]) || undefined;
+  const pick = (game.picks && game.picks[0]) || undefined;
 
   console.log(pick);
 

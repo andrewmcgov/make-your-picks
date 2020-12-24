@@ -1,0 +1,7 @@
+.WinnerSelect {
+  display: flex;
+
+  @include mobile {
+    flex-direction: column;
+  }
+}

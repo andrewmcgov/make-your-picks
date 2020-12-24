@@ -10,7 +10,8 @@ interface Props {
 }
 
 export function Pick({game}: Props) {
-  const originalPick = (game.Pick && game.Pick[0] && game.Pick[0].teamId) || '';
+  const originalPick =
+    (game.picks && game.picks[0] && game.picks[0].teamId) || '';
   const [pick, setPick] = useState(originalPick);
   const [error, setError] = useState('');
   const {id, awayId, homeId, home, away, start} = game;
