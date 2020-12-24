@@ -17,6 +17,7 @@ model User {
   password String
   resetToken String?
   resetExpiry String?
+  picks Pick[]
 }
 
 model Team {
