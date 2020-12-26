@@ -3,9 +3,9 @@ import {useQuery, useMutation} from 'react-query';
 import {Team} from '@prisma/client';
 import {DateTimePicker, MuiPickersUtilsProvider} from '@material-ui/pickers';
 import DateFnsUtils from '@date-io/date-fns';
-import {Card, Button} from 'components';
+import {Card, Button, Select} from 'components';
 import {TeamsResponse, GameWithTeams} from 'types';
-import {weeks} from 'data/weeks';
+import {weekOptions} from 'data/weeks';
 import styles from './GameForm.module.scss';
 
 interface Props {
@@ -89,11 +89,10 @@ export function GameForm({game}: Props) {
       return 0;
     })
     .map((team) => {
-      return (
-        <option key={team.id} value={team.id}>
-          {team.fullName}
-        </option>
-      );
+      return {
+        label: team.fullName,
+        value: team.id,
+      };
     });
 
   return (
@@ -106,27 +105,25 @@ export function GameForm({game}: Props) {
             <div>
               <label htmlFor="away-select">Away</label>
             </div>
-            <select
+            <Select
               name="away"
               id="away-select"
               value={away}
               onChange={(e) => setAway(e.target.value)}
-            >
-              {teamOptions}
-            </select>
+              options={teamOptions}
+            />
           </div>
           <div className={styles.TeamSelect}>
             <div>
               <label htmlFor="home-select">Home</label>
             </div>
-            <select
+            <Select
               name="home"
               id="home-select"
               value={home}
               onChange={(e) => setHome(e.target.value)}
-            >
-              {teamOptions}
-            </select>
+              options={teamOptions}
+            />
           </div>
           <div className={styles.DateTimePicker}>
             <MuiPickersUtilsProvider utils={DateFnsUtils}>
@@ -137,18 +134,13 @@ export function GameForm({game}: Props) {
             <div>
               <label htmlFor="week-select">Week</label>
             </div>
-            <select
+            <Select
               name="week"
               id="week-select"
               value={week}
               onChange={(e) => setWeek(e.target.value)}
-            >
-              {weeks.map((week) => (
-                <option key={week} value={week}>
-                  {week}
-                </option>
-              ))}
-            </select>
+              options={weekOptions}
+            />
           </div>
         </div>
         <Button onClick={resetForm} secondary>

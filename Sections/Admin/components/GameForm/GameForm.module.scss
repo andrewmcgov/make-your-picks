@@ -1,12 +1,13 @@
 .Container {
-  display: flex;
-  align-items: center;
-
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
   input {
     font-size: 1.6rem;
   }
 
   @include mobile {
+    display: flex;
+    align-items: center;
     flex-direction: column;
   }
 }
