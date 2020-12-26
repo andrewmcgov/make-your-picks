@@ -43,7 +43,6 @@ export function Home() {
     <>
       <Head>
         <title>MAKE YOUR PICKS!</title>
-        <link rel="icon" href="/favicon.ico" />
       </Head>
 
       <Page title={'Home'} action={selectMarkup}>

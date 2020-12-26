@@ -15,7 +15,6 @@ export function Admin() {
     <Page title="Admin">
       <Head>
         <title>Admin | MAKE YOUR PICKS!</title>
-        <link rel="icon" href="/favicon.ico" />
       </Head>
       <GameForm />
       <GameList />

@@ -12,7 +12,6 @@ export function Account() {
     <>
       <Head>
         <title>Accout | MAKE YOUR PICKS!</title>
-        <link rel="icon" href="/favicon.ico" />
       </Head>
       {user ? (
         <Page title="Account">

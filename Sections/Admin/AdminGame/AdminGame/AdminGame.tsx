@@ -83,7 +83,6 @@ export function AdminGame() {
     <Page title={title}>
       <Head>
         <title>Admin Game | MAKE YOUR PICKS!</title>
-        <link rel="icon" href="/favicon.ico" />
       </Head>
       {game && <GameForm game={game} />}
       <Card>
