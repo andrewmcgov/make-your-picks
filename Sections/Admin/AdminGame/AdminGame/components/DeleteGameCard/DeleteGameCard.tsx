@@ -36,11 +36,18 @@ export function DeleteGameCard({id}: Props) {
       <Button
         onClick={() => setShowDeleteButton(!showDeleteButton)}
         disabled={deleteLoading}
+        destructive={!showDeleteButton}
+        secondary={showDeleteButton}
       >
-        Delete game
+        {showDeleteButton ? 'Cancel' : 'Delete game'}
       </Button>
       {showDeleteButton && (
-        <Button primary row disabled={deleteLoading} onClick={handleDeleteGame}>
+        <Button
+          row
+          destructive
+          disabled={deleteLoading}
+          onClick={handleDeleteGame}
+        >
           Delete!
         </Button>
       )}

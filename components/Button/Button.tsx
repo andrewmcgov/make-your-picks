@@ -7,6 +7,7 @@ interface Props {
   primary?: boolean;
   secondary?: boolean;
   plain?: boolean;
+  destructive?: boolean;
   onClick?: (event?: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
   row?: boolean;
   disabled?: boolean;
@@ -19,6 +20,7 @@ export function Button({
   secondary,
   row,
   plain,
+  destructive,
   disabled,
 }: Props) {
   const classes = classNames(
@@ -27,7 +29,8 @@ export function Button({
     secondary && styles.Secondary,
     row && styles.Row,
     plain && styles.Plain,
-    disabled && styles.Disabled
+    disabled && styles.Disabled,
+    destructive && styles.Destructive
   );
   return (
     <button className={classes} onClick={onClick} disabled={disabled}>
