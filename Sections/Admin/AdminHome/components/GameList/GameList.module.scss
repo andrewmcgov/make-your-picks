@@ -2,8 +2,36 @@
   margin-top: 2rem;
 }
 
+.List {
+  list-style-type: none;
+  padding-left: 0;
+}
+
 .GameRow {
   display: grid;
   grid-template-columns: 1fr repeat(2, 3fr) 2fr;
   padding: 0.5rem 0;
+  padding: 1rem;
+
+  &:hover {
+    background-color: #e0e0e0;
+  }
+}
+
+.Header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  @include mobile {
+    flex-direction: column;
+  }
+}
+
+.Winner {
+  font-weight: bold;
+}
+
+.Loser {
+  text-decoration: line-through;
 }

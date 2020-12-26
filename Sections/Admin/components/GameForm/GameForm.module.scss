@@ -1,6 +1,8 @@
 .Container {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
+  grid-column-gap: 1rem;
+
   input {
     font-size: 1.6rem;
   }
@@ -23,6 +25,9 @@
 
 .DateTimePicker {
   width: 100%;
+  padding: 2rem 1rem 2rem 0;
+  display: flex;
+  align-items: flex-end;
 
   div {
     width: 100%;
@@ -34,5 +39,6 @@
 }
 
 .WeekSelect {
-  padding: 2rem;
+  width: 100%;
+  padding: 2rem 1rem 2rem 0;
 }

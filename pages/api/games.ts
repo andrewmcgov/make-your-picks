@@ -36,7 +36,10 @@ export default async (
           },
     });
   } else {
-    games = await prisma.game.findMany({include: {home: true, away: true}});
+    games = await prisma.game.findMany({
+      where: {week},
+      include: {home: true, away: true},
+    });
   }
 
   res.statusCode = 200;

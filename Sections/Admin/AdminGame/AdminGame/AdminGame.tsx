@@ -89,34 +89,40 @@ export function AdminGame() {
       <Card>
         <h3>Close game</h3>
         <div className={styles.WinnerSelect}>
-          <RadioButton
-            id={`away-${id}`}
-            name={`winner-${id}`}
-            label={away.nickName}
-            value={awayId}
-            checked={winner === awayId}
-            onChange={() => setWinner(awayId)}
-            disabled={false}
-            loading={false}
-          />
-          <RadioButton
-            id={`home-${id}`}
-            name={`winner-${id}`}
-            label={home.nickName}
-            value={homeId}
-            checked={winner === homeId}
-            onChange={() => setWinner(homeId)}
-            disabled={false}
-            loading={false}
-          />
-          <Button
-            primary
-            row
-            disabled={closeLoading || !winner}
-            onClick={handleCloseGame}
-          >
-            Close game
-          </Button>
+          <div className={styles.WinnerRadio}>
+            <RadioButton
+              id={`away-${id}`}
+              name={`winner-${id}`}
+              label={away.nickName}
+              value={awayId}
+              checked={winner === awayId}
+              onChange={() => setWinner(awayId)}
+              disabled={false}
+              loading={false}
+            />
+          </div>
+          <div className={styles.WinnerRadio}>
+            <RadioButton
+              id={`home-${id}`}
+              name={`winner-${id}`}
+              label={home.nickName}
+              value={homeId}
+              checked={winner === homeId}
+              onChange={() => setWinner(homeId)}
+              disabled={false}
+              loading={false}
+            />
+          </div>
+          <div className={styles.Button}>
+            <Button
+              primary
+              row
+              disabled={closeLoading || !winner}
+              onClick={handleCloseGame}
+            >
+              Close game
+            </Button>
+          </div>
         </div>
       </Card>
       <Card>

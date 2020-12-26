@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {useQuery, useMutation} from 'react-query';
+import {useQuery, useMutation, useQueryCache} from 'react-query';
 import {Team} from '@prisma/client';
 import {DateTimePicker, MuiPickersUtilsProvider} from '@material-ui/pickers';
 import DateFnsUtils from '@date-io/date-fns';
@@ -21,6 +21,7 @@ export function GameForm({game}: Props) {
     game?.start ? new Date(game.start) : new Date()
   );
   const [saved, setSaved] = useState(false);
+  const cache = useQueryCache();
 
   const {isLoading} = useQuery('teams', async () => {
     const res = await fetch('/api/getTeams');
@@ -31,17 +32,24 @@ export function GameForm({game}: Props) {
     }
   });
 
-  const [createGame, {isLoading: createLoading}] = useMutation(async () => {
-    const res = await fetch(`/api/createGame`, {
-      method: 'POST',
-      body: JSON.stringify({home, away, start, week}),
-    });
-    const data = await res.json();
-    if (data.success) {
-      setSaved(true);
+  const [createGame, {isLoading: createLoading}] = useMutation(
+    async () => {
+      const res = await fetch(`/api/createGame`, {
+        method: 'POST',
+        body: JSON.stringify({home, away, start, week}),
+      });
+      const data = await res.json();
+      if (data.success) {
+        setSaved(true);
+      }
+      return data;
+    },
+    {
+      onSuccess: () => {
+        cache.invalidateQueries('admin_games');
+      },
     }
-    return data;
-  });
+  );
 
   const [editGame, {isLoading: editLoading}] = useMutation(async () => {
     const res = await fetch(`/api/editGame`, {
@@ -109,7 +117,7 @@ export function GameForm({game}: Props) {
               name="away"
               id="away-select"
               value={away}
-              onChange={(e) => setAway(e.target.value)}
+              onChange={setAway}
               options={teamOptions}
             />
           </div>
@@ -121,7 +129,7 @@ export function GameForm({game}: Props) {
               name="home"
               id="home-select"
               value={home}
-              onChange={(e) => setHome(e.target.value)}
+              onChange={setHome}
               options={teamOptions}
             />
           </div>
@@ -138,7 +146,7 @@ export function GameForm({game}: Props) {
               name="week"
               id="week-select"
               value={week}
-              onChange={(e) => setWeek(e.target.value)}
+              onChange={setWeek}
               options={weekOptions}
             />
           </div>

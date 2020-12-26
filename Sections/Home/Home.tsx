@@ -1,14 +1,14 @@
 import React, {useState} from 'react';
 import Head from 'next/head';
 import {useQuery} from 'react-query';
-import {weekOptions} from 'data/weeks';
 import {GameCard, Page, SkeletonCard, Select} from 'components';
 import {GamesResponse} from 'types';
+import {useWeekSelect} from 'utilities/useWeekSelect';
 
 import styles from './Home.module.scss';
 
 export function Home() {
-  const [week, setWeek] = useState('16');
+  const {week, weekSelect} = useWeekSelect();
 
   const {data, isLoading} = useQuery<GamesResponse>(
     ['games', week],
@@ -22,17 +22,7 @@ export function Home() {
     }
   );
 
-  const selectMarkup = (
-    <div className={styles.WeekSelect}>
-      <Select
-        name="week"
-        id="week-select"
-        value={week}
-        onChange={setWeek}
-        options={weekOptions}
-      />
-    </div>
-  );
+  const selectMarkup = <div className={styles.WeekSelect}>{weekSelect}</div>;
 
   const loadingMarkup = isLoading ? (
     <div className={styles.GameGrid}>
