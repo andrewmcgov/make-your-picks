@@ -1,0 +1,1 @@
+export {DeleteGameCard} from './DeleteGameCard';
