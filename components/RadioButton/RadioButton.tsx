@@ -1,6 +1,7 @@
 import React from 'react';
 import {FiCheck} from 'react-icons/fi';
 import styles from './RadioButton.module.scss';
+import {classNames} from 'utilities/classNames';
 import {Spinner} from 'components';
 
 interface Props {
@@ -12,6 +13,7 @@ interface Props {
   onChange: () => void;
   disabled?: boolean;
   loading?: boolean;
+  row?: boolean;
 }
 
 export function RadioButton({
@@ -23,6 +25,7 @@ export function RadioButton({
   onChange,
   disabled,
   loading,
+  row,
 }: Props) {
   return (
     <>
@@ -36,7 +39,10 @@ export function RadioButton({
         onChange={onChange}
         disabled={disabled}
       />
-      <label className={styles.RadioLabel} htmlFor={id}>
+      <label
+        className={classNames(styles.RadioLabel, row && styles.Row)}
+        htmlFor={id}
+      >
         {!loading && checked && (
           <div className={styles.Check}>
             <FiCheck size="16px" />

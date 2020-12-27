@@ -62,6 +62,7 @@ export function Pick({game}: Props) {
           onChange={() => handleSavePick(homeId)}
           disabled={isLoading}
           loading={isLoading}
+          row
         />
       </div>
       {error && <p className={styles.Error}>{error}</p>}

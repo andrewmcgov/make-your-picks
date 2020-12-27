@@ -35,12 +35,14 @@ export function GameCard({game}: Props) {
   return (
     <Card flush>
       <div className={styles.Matchup}>
-        <span className={classNames(styles.Away, `NFL-${game.away.abr}`)}>
-          {away.city}
-        </span>
-        <span className={classNames(styles.Home, `NFL-${game.home.abr}`)}>
-          {home.city}
-        </span>
+        <div className={classNames(styles.Team, `NFL-${game.away.abr}`)}>
+          <span>{away.city}</span>
+          {game.awayScore !== undefined ? <span>{game.awayScore}</span> : null}
+        </div>
+        <div className={classNames(styles.Team, `NFL-${game.home.abr}`)}>
+          <span>{home.city}</span>
+          {game.homeScore !== undefined ? <span>{game.homeScore}</span> : null}
+        </div>
       </div>
       <div className={styles.Content}>
         <p className={styles.Date}>{moment(start).calendar()}</p>

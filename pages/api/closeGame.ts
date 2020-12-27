@@ -13,9 +13,9 @@ export default async (
   const token = req.cookies.picker_id;
   const body = JSON.parse(req.body);
   const gameId: string = body.gameId;
+  const homeScore: string = body.homeScore;
+  const awayScore: string = body.awayScore;
   let winnerId: string = body.winnerId;
-
-  console.log({gameId, winnerId});
 
   if (token && gameId && winnerId) {
     const id = (jwt.verify(token, process.env.APP_SECRET) as {id: string}).id;
@@ -42,10 +42,21 @@ export default async (
         });
       }
 
+      if (isNaN(Number(homeScore)) || isNaN(Number(awayScore))) {
+        res.statusCode = 200;
+        return res.json({
+          message: `Please provide valid scores`,
+        });
+      }
+
       // Save the winnerId of the winning team on the game
       await prisma.game.update({
         where: {id: game.id},
-        data: {winnerId: Number(winnerId)},
+        data: {
+          winnerId: Number(winnerId),
+          homeScore: Number(homeScore),
+          awayScore: Number(awayScore),
+        },
       });
 
       // For all picks of that game, set the correct and closed values based on the winner of the pick

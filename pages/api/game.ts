@@ -13,7 +13,7 @@ export default async (
 
   if (!id) {
     res.statusCode = 400;
-    res.json({game: null});
+    return res.json({game: null});
   }
 
   const game = await prisma.game.findUnique({
