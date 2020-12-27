@@ -23,14 +23,17 @@ export default async (
 
   if (token) {
     const id = (jwt.verify(token, process.env.APP_SECRET) as {id: string}).id;
-    const user = await prisma.user.findUnique({where: {id: Number(id)}});
+
+    const [user, game, team] = await Promise.all([
+      await prisma.user.findUnique({where: {id: Number(id)}}),
+      await prisma.game.findUnique({where: {id: Number(gameId)}}),
+      await prisma.team.findUnique({where: {id: Number(teamId)}}),
+    ]);
 
     if (!user) {
       res.statusCode = 400;
       return res.json({message: 'You must be logged in to make a pick'});
     }
-
-    const game = await prisma.game.findUnique({where: {id: Number(gameId)}});
 
     if (!game) {
       res.statusCode = 400;
@@ -42,8 +45,6 @@ export default async (
       res.statusCode = 400;
       return res.json({message: 'This game has already started!'});
     }
-
-    const team = await prisma.team.findUnique({where: {id: Number(teamId)}});
 
     if (!team) {
       res.statusCode = 400;
