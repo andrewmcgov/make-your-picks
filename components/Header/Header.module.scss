@@ -1,7 +1,16 @@
 .Header {
+  display: flex;
+  // align-items: center;
   width: 100%;
-  background-color: black;
+  position: fixed;
+  height: 60px;
   color: white;
+  background-color: black;
+  z-index: 5;
+
+  @include mobile {
+    height: 50px;
+  }
 }
 
 .Container {
@@ -10,11 +19,8 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  width: 100%;
   padding: 1rem;
-
-  @include mobile {
-    justify-content: center;
-  }
 }
 
 .Heading {

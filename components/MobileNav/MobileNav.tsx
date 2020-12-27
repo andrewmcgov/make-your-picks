@@ -1,11 +1,11 @@
 import React, {useState} from 'react';
 import Link from 'next/link';
-import {Card} from '../Card';
+import {FiMenu, FiX} from 'react-icons/fi';
 import {useCurrentUser} from '../CurrentUserContextProvider';
 import {classNames} from 'utilities/classNames';
 import styles from './MobileNav.module.scss';
 
-export function MobileNav() {
+export function useMobileNav() {
   const [open, setOpen] = useState(false);
   const user = useCurrentUser();
 
@@ -15,40 +15,35 @@ export function MobileNav() {
 
   const navClasses = classNames(styles.MobileNav, open && styles.MobileNavOpen);
 
-  return (
-    <>
+  return {
+    mobileNavTrigger: (
       <button
         className={classNames(styles.Trigger, open && styles.TriggerOpen)}
         onClick={() => setOpen(!open)}
       >
-        <span className={open ? styles.Top : undefined}>|</span>
-        <span className={open ? styles.Middle : undefined}>|</span>
-        <span className={open ? styles.Outside : undefined}>|</span>
+        {open ? <FiX size="25px" /> : <FiMenu size="25px" />}
       </button>
-
+    ),
+    mobileNav: (
       <div className={navClasses}>
-        <Card>
-          <div className={styles.InnerNav}>
-            <Link href="/">
-              <a className={styles.NavItem} onClick={closeNav}>
-                Home
-              </a>
-            </Link>
-            <Link href="/account">
-              <a className={styles.NavItem} onClick={closeNav}>
-                Account
-              </a>
-            </Link>
-            {user?.id <= 2 && (
-              <Link href="/admin">
-                <a className={styles.NavItem} onClick={closeNav}>
-                  Admin
-                </a>
-              </Link>
-            )}
-          </div>
-        </Card>
+        <Link href="/">
+          <a className={styles.NavItem} onClick={closeNav}>
+            Home
+          </a>
+        </Link>
+        <Link href="/account">
+          <a className={styles.NavItem} onClick={closeNav}>
+            Account {user?.username ? `(${user?.username})` : ''}
+          </a>
+        </Link>
+        {user?.id <= 2 && (
+          <Link href="/admin">
+            <a className={styles.NavItem} onClick={closeNav}>
+              Admin
+            </a>
+          </Link>
+        )}
       </div>
-    </>
-  );
+    ),
+  };
 }

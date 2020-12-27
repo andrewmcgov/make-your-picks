@@ -82,6 +82,7 @@ export function CloseGameCard({game}: Props) {
             onChange={() => setWinner(homeId)}
             disabled={false}
             loading={false}
+            row
           />
         </div>
         <div className={styles.Button}>

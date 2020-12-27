@@ -11,7 +11,7 @@ export {Button} from './Button';
 export {Logout} from './Logout';
 export {Card} from './Card';
 export {GameCard} from './GameCard';
-export {MobileNav} from './MobileNav';
+export {useMobileNav} from './MobileNav';
 export {RadioButton} from './RadioButton';
 export {Spinner} from './Spinner';
 export {SkeletonCard} from './SkeletonCard';

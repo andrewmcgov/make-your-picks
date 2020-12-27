@@ -1,17 +1,7 @@
 .Trigger {
-  position: fixed;
-  right: 0;
-  bottom: 0;
-  height: 50px;
-  width: 50px;
-  margin: 0 2rem 2rem 0;
-  padding: 1rem;
-  background: black;
+  background: transparent;
   color: white;
-  border-radius: 50%;
   border: none;
-  transform: rotate(90deg);
-  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
   transition: all 0.5s;
 
   @include desktop {
@@ -24,12 +14,27 @@
 }
 
 .MobileNav {
-  display: block;
   position: fixed;
-  bottom: 0;
-  width: 70%;
-  left: -100%;
+  top: -200px;
+  left: 0;
+  width: 100%;
   transition: all 0.5s;
+  background-color: #ffffff;
+  color: black;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.3);
+  padding: 1rem;
+  z-index: 2;
+
+  a {
+    padding: 2rem;
+    font-weight: bold;
+    font-style: italic;
+    width: 100%;
+    text-align: center;
+  }
 
   @include desktop {
     display: none;
@@ -37,17 +42,6 @@
 }
 
 .MobileNavOpen {
-  display: block;
-  left: 0;
-}
-
-.InnerNav {
-  color: black;
   display: flex;
-  flex-direction: column;
-  align-items: center;
-
-  a {
-    padding: 1rem;
-  }
+  top: 50px;
 }
