@@ -21,8 +21,6 @@ export default async (
     const id = (jwt.verify(token, process.env.APP_SECRET) as {id: string}).id;
     const user = await prisma.user.findUnique({where: {id: Number(id)}});
 
-    console.log({user: user.id});
-
     if (user.id <= 2) {
       // Get the game from the database, and include all picks for that game
       const game = ((await prisma.game.findUnique({
@@ -60,16 +58,28 @@ export default async (
       });
 
       // For all picks of that game, set the correct and closed values based on the winner of the pick
-      game.picks.forEach(async (pick) => {
-        console.log({pick: pick.teamId, winner: winnerId});
-        await prisma.pick.update({
-          where: {id: pick.id},
-          data: {closed: true, correct: Number(winnerId) === pick.teamId},
-        });
-      });
+      let updatingPicksError: string | boolean = false;
 
-      res.statusCode = 200;
-      return res.json({success: true});
+      await Promise.all(
+        game.picks.map(async (pick) => {
+          const updatedPick = await prisma.pick.update({
+            where: {id: pick.id},
+            data: {closed: true, correct: Number(winnerId) === pick.teamId},
+          });
+
+          if (!updatedPick.closed) {
+            updatingPicksError = 'Error updating picks, try again';
+          }
+        })
+      );
+
+      if (updatingPicksError) {
+        res.statusCode = 500;
+        return res.json({message: updatingPicksError});
+      } else {
+        res.statusCode = 200;
+        return res.json({success: true});
+      }
     }
   } else {
     res.statusCode = 200;

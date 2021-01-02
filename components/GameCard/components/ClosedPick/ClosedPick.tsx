@@ -12,7 +12,7 @@ export function ClosedPick({game}: Props) {
 
   function getMarkup() {
     if (pick) {
-      if (game.winnerId) {
+      if (pick.closed) {
         if (pick.correct) {
           return (
             <div>

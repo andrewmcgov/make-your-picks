@@ -19,6 +19,7 @@ export function CloseGameCard({game}: Props) {
   const [awayScore, setAwayScore] = useState(
     game.awayScore ? String(game.awayScore) : ''
   );
+  const [errorMessage, setErrorMessage] = useState('');
   const {id, awayId, homeId, home, away} = game;
 
   const [closeGame, {isLoading: closeLoading}] = useMutation(async () => {
@@ -36,24 +37,29 @@ export function CloseGameCard({game}: Props) {
       router.push('/admin');
     } else {
       console.error('error closing game');
+      setErrorMessage(data.message);
     }
     return data;
   });
 
   function handleCloseGame() {
+    setErrorMessage('');
     closeGame();
   }
 
   return (
     <Card>
       <h3>Close game</h3>
+      {errorMessage && <p className={styles.ErrorMessage}>{errorMessage}</p>}
       <div className={styles.ScoreInputs}>
         <TextField
+          type="number"
           value={awayScore}
           onChange={setAwayScore}
           label={`${away.nickName} score`}
         />
         <TextField
+          type="number"
           value={homeScore}
           onChange={setHomeScore}
           label={`${home.nickName} score`}
