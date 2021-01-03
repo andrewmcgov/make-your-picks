@@ -46,6 +46,10 @@ export function Home() {
       </Head>
 
       <Page title={'Home'} action={selectMarkup}>
+        <p className={styles.Message}>
+          👋 Picks won't count until playoffs, but any picks you make now help
+          me find bugs to make sure we're ready for prime time.
+        </p>
         {loadingMarkup}
         <div className={styles.GameGrid}>{gamesMarkup}</div>
         {data?.games.length < 1 && (
