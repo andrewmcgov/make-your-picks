@@ -58,3 +58,14 @@ model Pick {
   correct Boolean?
   closed Boolean?
 }
+
+model LeaderboardEntry {
+  id Int @id @default(autoincrement())
+  user User @relation(fields: [userId], references: [id])
+  season String
+  userId Int
+  wildcard Int
+  division Int
+  conference Int
+  superbowl Int
+}
