@@ -31,7 +31,7 @@ export function UpdateLeaderBoardCard() {
     <Card>
       <h3>Update Leaderboard</h3>
 
-      <Button onClick={handleUpdateLeaderboard} disabled={isLoading}>
+      <Button onClick={handleUpdateLeaderboard} disabled={isLoading} primary>
         Update
       </Button>
 
