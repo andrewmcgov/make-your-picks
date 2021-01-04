@@ -22,16 +22,31 @@ export type TeamsResponse = {
   teams: Team[];
 };
 
-export type GameWithTeams = Game & {
+export interface PickWithTeamAndUserName extends Pick {
+  team: Team;
+  user: {username: string};
+}
+
+export interface GameWithTeamsAndPicks extends Game {
   home: Team;
   away: Team;
-  picks?: (Pick & {team: Team})[] & {team: Team};
-};
+  picks?: PickWithTeamAndUserName[];
+}
 
-export type GamesResponse = {
-  games: GameWithTeams[];
-};
+export interface GameWithTeams extends Game {
+  home: Team;
+  away: Team;
+}
+
+export interface GameWithTeamsAndPicksAndUserPick
+  extends GameWithTeamsAndPicks {
+  userPick?: PickWithTeamAndUserName;
+}
+
+export interface GamesResponse {
+  games: GameWithTeamsAndPicksAndUserPick[];
+}
 
 export type GameResponse = {
-  game: GameWithTeams;
+  game: GameWithTeamsAndPicks;
 };

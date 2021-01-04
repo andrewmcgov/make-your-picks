@@ -2,10 +2,40 @@
   text-align: center;
 
   p {
-    margin: 0.5rem 0 1rem 0;
+    margin-left: 0.5rem;
 
     span {
       font-weight: bold;
     }
   }
+}
+
+.PickWrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.AllPicks {
+  display: flex;
+}
+
+.Home,
+.Away {
+  width: 100%;
+  padding: 0 1rem;
+
+  ul {
+    list-style-type: none;
+    padding-left: 1rem;
+    margin: 0 0 1rem 0;
+  }
+
+  li {
+    font-size: 1.2rem;
+  }
+}
+
+.Bold {
+  font-weight: bold;
 }

@@ -3,13 +3,13 @@ import Link from 'next/link';
 import moment from 'moment';
 import {classNames} from 'utilities/classNames';
 import {Card, useCurrentUser} from 'components';
-import {GameWithTeams} from 'types';
+import {GameWithTeamsAndPicksAndUserPick} from 'types';
 import {Pick, ClosedPick} from './components';
 
 import styles from './GameCard.module.scss';
 
 interface Props {
-  game: GameWithTeams;
+  game: GameWithTeamsAndPicksAndUserPick;
 }
 
 export function GameCard({game}: Props) {

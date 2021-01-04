@@ -3,15 +3,14 @@ import {RadioButton} from 'components';
 import {useMutation} from 'react-query';
 import {FiUnlock} from 'react-icons/fi';
 import styles from './Pick.module.scss';
-import {GameWithTeams} from 'types';
+import {GameWithTeamsAndPicksAndUserPick} from 'types';
 
 interface Props {
-  game: GameWithTeams;
+  game: GameWithTeamsAndPicksAndUserPick;
 }
 
 export function Pick({game}: Props) {
-  const originalPick =
-    (game.picks && game.picks[0] && game.picks[0].teamId) || '';
+  const originalPick = game.userPick?.teamId || '';
   const [pick, setPick] = useState(originalPick);
   const [error, setError] = useState('');
   const {id, awayId, homeId, home, away, start} = game;
