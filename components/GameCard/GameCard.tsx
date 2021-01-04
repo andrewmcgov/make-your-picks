@@ -32,6 +32,10 @@ export function GameCard({game}: Props) {
   const pickMarkup = user && !gameStarted ? <Pick game={game} /> : null;
   const closedPick = gameStarted ? <ClosedPick game={game} /> : null;
 
+  console.log(
+    `Total picks for ${away.abr} @ ${home.abr}: ${game.picks?.length || 0}`
+  );
+
   return (
     <Card flush>
       <div className={styles.Matchup}>

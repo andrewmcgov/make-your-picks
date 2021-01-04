@@ -53,13 +53,13 @@ export function CloseGameCard({game}: Props) {
       {errorMessage && <p className={styles.ErrorMessage}>{errorMessage}</p>}
       <div className={styles.ScoreInputs}>
         <TextField
-          type="number"
+          type="tel"
           value={awayScore}
           onChange={setAwayScore}
           label={`${away.nickName} score`}
         />
         <TextField
-          type="number"
+          type="tel"
           value={homeScore}
           onChange={setHomeScore}
           label={`${home.nickName} score`}

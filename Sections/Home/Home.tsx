@@ -1,7 +1,8 @@
-import React, {useState} from 'react';
+import React from 'react';
 import Head from 'next/head';
+import Link from 'next/link';
 import {useQuery} from 'react-query';
-import {GameCard, Page, SkeletonCard, Select} from 'components';
+import {GameCard, Page, SkeletonCard, Banner, BannerStatus} from 'components';
 import {GamesResponse} from 'types';
 import {useWeekSelect} from 'utilities/useWeekSelect';
 
@@ -46,10 +47,16 @@ export function Home() {
       </Head>
 
       <Page title={'Home'} action={selectMarkup}>
-        <p className={styles.Message}>
-          👋 Picks won't count until playoffs, but any picks you make now help
-          me find bugs to make sure we're ready for prime time.
-        </p>
+        <Banner title="Wildcard weekend is here!" status={BannerStatus.Info}>
+          <p className={styles.Message}>
+            Picks lock at the start of the game. Once the game starts, refresh
+            the page to see who everyone else picked. The{' '}
+            <Link href="/leaderboard">
+              <a>Leaderboard page</a>
+            </Link>{' '}
+            will show the most recent rankings.
+          </p>
+        </Banner>
         {loadingMarkup}
         <div className={styles.GameGrid}>{gamesMarkup}</div>
         {data?.games.length < 1 && (

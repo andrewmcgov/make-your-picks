@@ -1,0 +1,22 @@
+.Banner {
+  width: 100%;
+  padding: 1rem;
+  border-radius: 1rem;
+
+  h3 {
+    margin-top: 0;
+  }
+
+  @include mobile {
+    margin-top: 2rem;
+  }
+}
+
+.Error {
+  border-left: 4px solid rgb(243, 28, 28);
+}
+
+.Info {
+  background-color: rgba(28, 203, 243, 0.37);
+  // border-left: 4px solid rgb(28, 128, 243);
+}

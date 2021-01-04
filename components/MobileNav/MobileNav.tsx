@@ -31,6 +31,11 @@ export function useMobileNav() {
             Home
           </a>
         </Link>
+        <Link href="/leaderboard">
+          <a className={styles.NavItem} onClick={closeNav}>
+            Leaderboard
+          </a>
+        </Link>
         <Link href="/account">
           <a className={styles.NavItem} onClick={closeNav}>
             Account {user?.username ? `(${user?.username})` : ''}
