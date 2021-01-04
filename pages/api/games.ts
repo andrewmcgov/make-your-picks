@@ -24,16 +24,11 @@ export default async (
       where: {
         week,
       },
-      include: userId
-        ? {
-            home: true,
-            away: true,
-            picks: {include: {team: true, user: {select: {username: true}}}},
-          }
-        : {
-            home: true,
-            away: true,
-          },
+      include: {
+        home: true,
+        away: true,
+        picks: {include: {team: true, user: {select: {username: true}}}},
+      },
     })) as unknown) as GameWithTeamsAndPicks[];
 
     if (userId) {
