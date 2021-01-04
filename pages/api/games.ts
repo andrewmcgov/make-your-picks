@@ -1,7 +1,7 @@
 import type {NextApiRequest, NextApiResponse} from 'next';
-import {PrismaClient} from '@prisma/client';
+import {PrismaClient, Game, Pick, Team} from '@prisma/client';
 import jwt from 'jsonwebtoken';
-import {GamesResponse} from 'types';
+import {GamesResponse, GameWithTeamsAndPicks} from 'types';
 
 const prisma = new PrismaClient();
 
@@ -9,7 +9,7 @@ export default async (
   req: NextApiRequest,
   res: NextApiResponse<GamesResponse>
 ) => {
-  let games;
+  let games: GameWithTeamsAndPicks[] | undefined;
   const token = req.cookies.picker_id;
   const userId = token
     ? (jwt.verify(token, process.env.APP_SECRET) as {id: string}).id
@@ -20,7 +20,7 @@ export default async (
   const week = body?.week ? body.week : '16';
 
   if (!adminPage) {
-    games = await prisma.game.findMany({
+    games = ((await prisma.game.findMany({
       where: {
         week,
       },
@@ -28,18 +28,27 @@ export default async (
         ? {
             home: true,
             away: true,
-            picks: {where: {userId: Number(userId)}, include: {team: true}},
+            picks: {include: {team: true, user: {select: {username: true}}}},
           }
         : {
             home: true,
             away: true,
           },
-    });
+    })) as unknown) as GameWithTeamsAndPicks[];
+
+    if (userId) {
+      games = games.map((game) => {
+        return {
+          ...game,
+          userPick: game.picks.find((pick) => pick.userId === Number(userId)),
+        };
+      });
+    }
   } else {
-    games = await prisma.game.findMany({
+    games = ((await prisma.game.findMany({
       where: {week},
       include: {home: true, away: true},
-    });
+    })) as unknown) as GameWithTeamsAndPicks[];
   }
 
   res.statusCode = 200;

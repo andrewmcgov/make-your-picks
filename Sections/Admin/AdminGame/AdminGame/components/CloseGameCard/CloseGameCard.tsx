@@ -1,13 +1,13 @@
 import React, {useState} from 'react';
 import {useRouter} from 'next/router';
 import {useMutation} from 'react-query';
-import {GameWithTeams} from 'types';
+import {GameWithTeamsAndPicksAndUserPick} from 'types';
 import {Card, Button, RadioButton, TextField} from 'components';
 
 import styles from './CloseGameCard.module.scss';
 
 interface Props {
-  game: GameWithTeams;
+  game: GameWithTeamsAndPicksAndUserPick;
 }
 
 export function CloseGameCard({game}: Props) {
