@@ -3,7 +3,7 @@
   grid-template-columns: repeat(2, 1fr);
   grid-template-rows: 1fr;
   grid-column-gap: 20px;
-  grid-row-gap: 20px;
+  // grid-row-gap: 20px;
 
   @include mobile {
     grid-template-columns: 1fr;
