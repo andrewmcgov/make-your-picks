@@ -39,12 +39,12 @@ export default async (
     allUsers.map(async (user) => {
       const existingEntry =
         (await prisma.leaderboardEntry.findFirst({
-          where: {userId: user.id, season: '2020-BETA'},
+          where: {userId: user.id, season: '2020'},
         })) ||
         (await prisma.leaderboardEntry.create({
           data: {
             user: {connect: {id: user.id}},
-            season: '2020-BETA',
+            season: '2020',
             wildcard: 0,
             division: 0,
             conference: 0,
@@ -59,12 +59,14 @@ export default async (
 
       const wildcardCorrectPicks = picks.filter(
         (pick) =>
-          pick.game.season === '2020' && pick.game.week === '16' && pick.correct
+          pick.game.season === '2020' && pick.game.week === 'WC' && pick.correct
       );
 
       const divisionCorrectPicks = picks.filter(
         (pick) =>
-          pick.game.season === '2020' && pick.game.week === '17' && pick.correct
+          pick.game.season === '2020' &&
+          pick.game.week === 'DIV' &&
+          pick.correct
       );
 
       const conferenceCorrectPicks = picks.filter(

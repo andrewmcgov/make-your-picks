@@ -1,0 +1,32 @@
+.Table {
+  border-spacing: 0;
+  border: 1px solid black;
+
+  @include mobile {
+    display: block;
+    overflow-x: auto;
+    white-space: nowrap;
+  }
+
+  th,
+  td {
+    margin: 0;
+    padding: 1rem;
+    border-bottom: 1px solid black;
+    border-right: 1px solid black;
+    text-align: center;
+    min-width: 100px;
+
+    &:last-child {
+      border-right: none;
+    }
+  }
+
+  tbody {
+    tr:last-child {
+      td {
+        border-bottom: 0;
+      }
+    }
+  }
+}

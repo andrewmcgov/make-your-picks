@@ -8,9 +8,8 @@ export default async (
   req: NextApiRequest,
   res: NextApiResponse<LeaderboardEntryResponse | null>
 ) => {
-  const token = req.cookies.picker_id;
-
   const leaderbaordEntries = ((await prisma.leaderboardEntry.findMany({
+    where: {season: '2020'},
     include: {user: {select: {username: true, id: true}}},
   })) as unknown) as LeaderboardEntryWithUserInfo[];
 

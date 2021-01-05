@@ -1,6 +1,6 @@
 import React from 'react';
-import {Leaderboard} from 'Sections/Leaderboard';
+import {LeaderboardHome} from 'Sections/Leaderboard/LeaderboardHome';
 
 export default function LeaderboardPage() {
-  return <Leaderboard />;
+  return <LeaderboardHome />;
 }
