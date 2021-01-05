@@ -1,4 +1,10 @@
-import {User, Team, Game, Pick} from '@prisma/client';
+import {
+  User,
+  Team,
+  Game,
+  Pick as PickModel,
+  LeaderboardEntry,
+} from '@prisma/client';
 
 export type ErrorResponse = {
   message: string;
@@ -22,7 +28,7 @@ export type TeamsResponse = {
   teams: Team[];
 };
 
-export interface PickWithTeamAndUserName extends Pick {
+export interface PickWithTeamAndUserName extends PickModel {
   team: Team;
   user: {username: string};
 }
@@ -50,3 +56,13 @@ export interface GamesResponse {
 export type GameResponse = {
   game: GameWithTeamsAndPicks;
 };
+
+export interface LeaderboardEntryWithUserInfo extends LeaderboardEntry {
+  user: Pick<User, 'id' | 'username'>;
+}
+
+export interface LeaderboardEntryResponse {
+  entries: LeaderboardEntryWithUserInfo[];
+  success: boolean;
+  message?: string;
+}
