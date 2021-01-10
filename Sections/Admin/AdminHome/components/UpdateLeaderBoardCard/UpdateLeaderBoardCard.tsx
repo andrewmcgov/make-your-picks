@@ -1,24 +1,24 @@
 import React, {useState} from 'react';
 import {useMutation} from 'react-query';
 import {Card, Button} from 'components';
+import {customFetch} from 'utilities/api';
 
 export function UpdateLeaderBoardCard() {
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState(false);
 
-  const [closeGame, {isLoading}] = useMutation(async () => {
-    const res = await fetch(`/api/updateLeaderboard`, {
-      method: 'POST',
-    });
-
-    const data = await res.json();
-    if (data.success) {
-      setSuccess(true);
-    } else {
-      setError(true);
+  const [closeGame, {isLoading}] = useMutation(
+    () => customFetch({url: `/api/updateLeaderboard`}),
+    {
+      onSuccess: (data) => {
+        if (data.success) {
+          setSuccess(true);
+        } else {
+          setError(true);
+        }
+      },
     }
-    return data;
-  });
+  );
 
   function handleUpdateLeaderboard() {
     setSuccess(false);

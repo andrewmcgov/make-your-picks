@@ -1,11 +1,8 @@
-export async function query(path: string) {
-  return fetch(`http://localhost:3000${path}`).then((res) => res.json());
-}
-
-export async function mutation(path: string, body: object) {
-  const res = await fetch(`http://localhost:3000${path}`, {
+export async function customFetch({url, body}: {url: string; body?: any}) {
+  const res = await fetch(url, {
     method: 'POST',
-    body: JSON.stringify(body),
+    body,
   });
-  return await res.json();
+
+  return res.json();
 }

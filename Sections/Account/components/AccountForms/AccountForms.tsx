@@ -1,8 +1,8 @@
 import React from 'react';
 import {useMutation, useQueryCache} from 'react-query';
-import {weeks} from 'data/weeks';
 import {TextField, Button, Card} from 'components';
 import styles from './AccountForms.module.scss';
+import {customFetch} from 'utilities/api';
 
 export function AccountForms() {
   const [creating, setCreating] = React.useState(false);
@@ -16,26 +16,25 @@ export function AccountForms() {
   const cache = useQueryCache();
 
   const [login, {isLoading: loginLoading}] = useMutation(
-    async () => {
-      const res = await fetch(`/api/login`, {
-        method: 'POST',
-        body: JSON.stringify({email, password}),
-      });
-      const data = await res.json();
-      return data;
-    },
+    () =>
+      customFetch({url: `/api/login`, body: JSON.stringify({email, password})}),
     {
-      onSuccess: () => {
-        cache.invalidateQueries('games', {refetchInactive: true});
-        cache.invalidateQueries('currentUser');
+      onSuccess: (data) => {
+        if (data.message) {
+          setErrorMessage(data.message);
+        } else {
+          setErrorMessage('');
+          cache.invalidateQueries('games', {refetchInactive: true});
+          cache.invalidateQueries('currentUser');
+        }
       },
     }
   );
 
-  const [creatUser, {isLoading: creatUserLoading}] = useMutation(
-    async () => {
-      const res = await fetch(`/api/createUser`, {
-        method: 'POST',
+  const [createUser, {isLoading: createUserLoading}] = useMutation(
+    () =>
+      customFetch({
+        url: '/api/createUser',
         body: JSON.stringify({
           email,
           username,
@@ -43,26 +42,21 @@ export function AccountForms() {
           repeatPassword,
           activationKey,
         }),
-      });
-      const data = await res.json();
-
-      if (data.message) {
-        setErrorMessage(data.message);
-      } else {
-        setErrorMessage('');
-      }
-
-      return data;
-    },
+      }),
     {
-      onSuccess: () => {
+      onSuccess: (data) => {
+        if (data.message) {
+          setErrorMessage(data.message);
+        } else {
+          setErrorMessage('');
+        }
         cache.invalidateQueries('currentUser');
       },
     }
   );
 
   function handleSubmit() {
-    creating ? creatUser() : login();
+    creating ? createUser() : login();
   }
 
   return (
@@ -123,7 +117,7 @@ export function AccountForms() {
           primary
           row
           onClick={handleSubmit}
-          disabled={loginLoading || creatUserLoading}
+          disabled={loginLoading || createUserLoading}
         >
           {creating ? 'Create account' : 'Login'}
         </Button>

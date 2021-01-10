@@ -3,6 +3,7 @@ import {useRouter} from 'next/router';
 import {useMutation} from 'react-query';
 import {GameWithTeamsAndPicksAndUserPick} from 'types';
 import {Card, Button, RadioButton, TextField} from 'components';
+import {customFetch} from 'utilities/api';
 
 import styles from './CloseGameCard.module.scss';
 
@@ -22,25 +23,28 @@ export function CloseGameCard({game}: Props) {
   const [errorMessage, setErrorMessage] = useState('');
   const {id, awayId, homeId, home, away} = game;
 
-  const [closeGame, {isLoading: closeLoading}] = useMutation(async () => {
-    const res = await fetch(`/api/closeGame`, {
-      method: 'POST',
-      body: JSON.stringify({
-        gameId: game.id,
-        winnerId: winner,
-        homeScore,
-        awayScore,
+  const [closeGame, {isLoading: closeLoading}] = useMutation(
+    () =>
+      customFetch({
+        url: `/api/closeGame`,
+        body: JSON.stringify({
+          gameId: game.id,
+          winnerId: winner,
+          homeScore,
+          awayScore,
+        }),
       }),
-    });
-    const data = await res.json();
-    if (data.success) {
-      router.push('/admin');
-    } else {
-      console.error('error closing game');
-      setErrorMessage(data.message);
+    {
+      onSuccess: (data) => {
+        if (data.success) {
+          router.push('/admin');
+        } else {
+          console.error('error closing game');
+          setErrorMessage(data.message);
+        }
+      },
     }
-    return data;
-  });
+  );
 
   function handleCloseGame() {
     setErrorMessage('');

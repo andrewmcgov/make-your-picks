@@ -7,22 +7,18 @@ import {GamesResponse} from 'types';
 import {Card} from 'components';
 import {useWeekSelect} from 'utilities/useWeekSelect';
 import {classNames} from 'utilities/classNames';
+import {customFetch} from 'utilities/api';
 
 import styles from './GameList.module.scss';
 
 export function GameList() {
   const {week, weekSelect} = useWeekSelect();
 
-  const {data, isLoading} = useQuery<GamesResponse>(
-    ['admin_games', week],
-    async () => {
-      const res = await fetch(`/api/games`, {
-        method: 'POST',
-        body: JSON.stringify({adminPage: true, week}),
-      });
-      const data = await res.json();
-      return data;
-    }
+  const {data} = useQuery<GamesResponse>(['admin_games', week], () =>
+    customFetch({
+      url: '/api/games',
+      body: JSON.stringify({adminPage: true, week}),
+    })
   );
 
   const gameRows = data?.games.map((game) => (

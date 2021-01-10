@@ -7,6 +7,7 @@ import {Card, Button, Select} from 'components';
 import {TeamsResponse, GameWithTeams} from 'types';
 import {weekOptions} from 'data/weeks';
 import styles from './GameForm.module.scss';
+import {customFetch} from 'utilities/api';
 
 interface Props {
   game?: GameWithTeams;
@@ -23,45 +24,49 @@ export function GameForm({game}: Props) {
   const [saved, setSaved] = useState(false);
   const cache = useQueryCache();
 
-  const {isLoading} = useQuery('teams', async () => {
-    const res = await fetch('/api/getTeams');
-    const data = (await res.json()) as TeamsResponse;
-
-    if (data.teams) {
-      setTeams(data.teams);
-    }
-  });
-
-  const [createGame, {isLoading: createLoading}] = useMutation(
-    async () => {
-      const res = await fetch(`/api/createGame`, {
-        method: 'POST',
-        body: JSON.stringify({home, away, start, week}),
-      });
-      const data = await res.json();
-      if (data.success) {
-        setSaved(true);
-      }
-      return data;
-    },
+  const {isLoading} = useQuery(
+    'teams',
+    () => customFetch({url: '/api/getTeams'}),
     {
-      onSuccess: () => {
-        cache.invalidateQueries('admin_games');
+      onSuccess: (data) => {
+        if (data.teams) {
+          setTeams(data.teams);
+        }
       },
     }
   );
 
-  const [editGame, {isLoading: editLoading}] = useMutation(async () => {
-    const res = await fetch(`/api/editGame`, {
-      method: 'POST',
-      body: JSON.stringify({home, away, start, week, id: game?.id}),
-    });
-    const data = await res.json();
-    if (data.success) {
-      setSaved(true);
+  const [createGame, {isLoading: createLoading}] = useMutation(
+    () =>
+      customFetch({
+        url: `/api/createGame`,
+        body: JSON.stringify({home, away, start, week}),
+      }),
+    {
+      onSuccess: (data) => {
+        if (data.success) {
+          setSaved(true);
+          cache.invalidateQueries('admin_games');
+        }
+      },
     }
-    return data;
-  });
+  );
+
+  const [editGame, {isLoading: editLoading}] = useMutation(
+    () =>
+      customFetch({
+        url: `/api/editGame`,
+        body: JSON.stringify({home, away, start, week, id: game?.id}),
+      }),
+    {
+      onSuccess: (data) => {
+        if (data.success) {
+          setSaved(true);
+          cache.invalidateQueries('admin_games');
+        }
+      },
+    }
+  );
 
   function handleCreatGame(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
     e.preventDefault();
