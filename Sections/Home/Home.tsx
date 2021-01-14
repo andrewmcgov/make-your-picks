@@ -47,14 +47,17 @@ export function Home() {
       </Head>
 
       <Page title={'Home'} action={selectMarkup}>
-        <Banner title="Wildcard weekend is here!" status={BannerStatus.Info}>
+        <Banner
+          title="Welcome to the divisional round"
+          status={BannerStatus.Info}
+        >
           <p className={styles.Message}>
             Picks lock at the start of the game. Once the game starts, refresh
-            the page to see who everyone else picked. The{' '}
+            the page to see who everyone else picked. Check out the{' '}
             <Link href="/leaderboard">
               <a>Leaderboard page</a>
             </Link>{' '}
-            will show the most recent rankings.
+            to see the latest rankings.
           </p>
         </Banner>
         {loadingMarkup}
