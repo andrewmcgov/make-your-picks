@@ -16,12 +16,10 @@ async function sendReminderMail(email: string) {
     await transport.sendMail({
       from: process.env.MAIL_USER,
       to: email,
-      subject: 'Make your picks for this week!',
-      html: makeEmail("Don't forget to make your picks!", [
-        `It's almost game time, don't forget to make your picks for this week!`,
+      subject: 'The Divisional Round is here',
+      html: makeEmail([
+        `The divisional round gets underway this Saturday at 4:35pm.`,
         `<a href="https://make-your-picks.vercel.app/">Click here to make your picks!</a>`,
-        'Or copy the link below into your browser.',
-        `https://make-your-picks.vercel.app/`,
       ]),
     });
   } catch (err) {
@@ -42,16 +40,14 @@ export async function emailUsers() {
   );
 }
 
-export function makeEmail(title: string, text: string[]) {
+export function makeEmail(text: string[]) {
   return `
   <div className="email" style="
-  border: 1px solid black;
-  padding: 20px;
+  padding: 5px;
   font-family: sans-serif;
   line-height: 2;
-  font-size: 20px;
+  font-size: 16px;
   ">
-  <h2>${title}</h2>
   ${text
     .map((line) => {
       return `<p>${line}<p>`;
