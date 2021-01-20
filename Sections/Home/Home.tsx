@@ -48,12 +48,11 @@ export function Home() {
 
       <Page title={'Home'} action={selectMarkup}>
         <Banner
-          title="Welcome to the divisional round"
+          title="Championship Weekend is here."
           status={BannerStatus.Info}
         >
           <p className={styles.Message}>
-            Picks lock at the start of the game. Once the game starts, refresh
-            the page to see who everyone else picked. Check out the{' '}
+            Each game is worth 4 points this week. Check out the{' '}
             <Link href="/leaderboard">
               <a>Leaderboard page</a>
             </Link>{' '}
