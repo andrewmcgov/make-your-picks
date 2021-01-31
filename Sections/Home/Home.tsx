@@ -68,8 +68,8 @@ export function Home() {
         <Banner title="It's time for the superbowl!" status={BannerStatus.Info}>
           <p className={styles.Message}>
             The Superbowl is worth 5 points. As a tie breaker, please enter your
-            prediction for total points scored in the superbowl below. Check out
-            the{' '}
+            prediction for how many total points will be scored in the superbowl
+            below. Check out the{' '}
             <Link href="/leaderboard">
               <a>Leaderboard page</a>
             </Link>{' '}

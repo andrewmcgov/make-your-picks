@@ -58,9 +58,10 @@ export function SuperBowlTieBreaker({tieBreakers, userTieBreaker}: Props) {
   return (
     <Card flush>
       <div className={styles.TieBreaker}>
+        <h3>Tiebreaker</h3>
         <p>
-          In the event of a tie, we'll need a tie breaker to sort out the
-          standings. Enter your guess for total points scored below 👇
+          Enter your guess for total number of points scored in the superbowl
+          below 👇
         </p>
 
         <TextField
