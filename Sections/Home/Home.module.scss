@@ -43,3 +43,12 @@
 .Message {
   margin-bottom: 0;
 }
+
+.Leaderboard {
+  padding: 5rem 0;
+  display: flex;
+  justify-content: center;
+  div {
+    max-width: 100%;
+  }
+}

@@ -1,8 +1,14 @@
 import React from 'react';
 import Head from 'next/head';
-import Link from 'next/link';
 import {useQuery} from 'react-query';
-import {GameCard, Page, SkeletonCard, Banner, BannerStatus} from 'components';
+import {
+  GameCard,
+  Page,
+  SkeletonCard,
+  Banner,
+  BannerStatus,
+  Leaderboard,
+} from 'components';
 import {GamesResponse} from 'types';
 import {useWeekSelect} from 'utilities/useWeekSelect';
 import {classNames} from 'utilities/classNames';
@@ -69,11 +75,7 @@ export function Home() {
           <p className={styles.Message}>
             The Superbowl is worth 5 points. As a tie breaker, please enter your
             prediction for how many total points will be scored in the superbowl
-            below. Check out the{' '}
-            <Link href="/leaderboard">
-              <a>Leaderboard page</a>
-            </Link>{' '}
-            to see the latest rankings.
+            below.
           </p>
         </Banner>
         {loadingMarkup}
@@ -91,6 +93,11 @@ export function Home() {
             No games added for this week! Try another week.
           </p>
         )}
+        <div className={styles.Leaderboard}>
+          <div>
+            <Leaderboard />
+          </div>
+        </div>
       </Page>
     </>
   );
