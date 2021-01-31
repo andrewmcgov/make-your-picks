@@ -1,7 +1,7 @@
 import type {NextApiRequest, NextApiResponse} from 'next';
-import {PrismaClient, Game, Pick, Team} from '@prisma/client';
+import {PrismaClient} from '@prisma/client';
 import jwt from 'jsonwebtoken';
-import {GamesResponse, GameWithTeamsAndPicks} from 'types';
+import {GamesResponse, GameWithTeamsAndPicks, TieBreakerWithUser} from 'types';
 
 const prisma = new PrismaClient();
 
@@ -10,6 +10,7 @@ export default async (
   res: NextApiResponse<GamesResponse>
 ) => {
   let games: GameWithTeamsAndPicks[] | undefined;
+  let tieBreakers: TieBreakerWithUser[] = undefined;
   const token = req.cookies.picker_id;
   const userId = token
     ? (jwt.verify(token, process.env.APP_SECRET) as {id: string}).id
@@ -39,6 +40,12 @@ export default async (
         };
       });
     }
+
+    if (week === 'SB') {
+      tieBreakers = await prisma.tieBreaker.findMany({
+        include: {user: {select: {id: true, username: true}}},
+      });
+    }
   } else {
     games = ((await prisma.game.findMany({
       where: {week},
@@ -47,5 +54,10 @@ export default async (
   }
 
   res.statusCode = 200;
-  res.json({games});
+  res.json({
+    games,
+    tieBreakers,
+    userTieBreaker:
+      userId && tieBreakers?.find((tb) => tb.userId === Number(userId)),
+  });
 };

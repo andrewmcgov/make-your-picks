@@ -19,6 +19,7 @@ model User {
   resetExpiry      String?
   picks            Pick[]
   LeaderboardEntry LeaderboardEntry[]
+  TieBreaker       TieBreaker[]
 }
 
 model Team {
@@ -70,4 +71,12 @@ model LeaderboardEntry {
   division   Int
   conference Int
   superbowl  Int
+}
+
+model TieBreaker {
+  id     Int    @id @default(autoincrement())
+  user   User   @relation(fields: [userId], references: [id])
+  userId Int
+  value  Int
+  season String
 }

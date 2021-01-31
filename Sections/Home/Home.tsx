@@ -5,6 +5,8 @@ import {useQuery} from 'react-query';
 import {GameCard, Page, SkeletonCard, Banner, BannerStatus} from 'components';
 import {GamesResponse} from 'types';
 import {useWeekSelect} from 'utilities/useWeekSelect';
+import {classNames} from 'utilities/classNames';
+import {SuperBowlTieBreaker} from './components';
 
 import styles from './Home.module.scss';
 
@@ -36,9 +38,25 @@ export function Home() {
     </div>
   ) : null;
 
+  const isSuperBowl = week === 'SB';
+
   const gamesMarkup = data?.games.map((game) => {
-    return <GameCard key={game.id} game={game} />;
+    return isSuperBowl ? (
+      <div className={styles.SuperBowlGame}>
+        <GameCard key={game.id} game={game} />
+      </div>
+    ) : (
+      <GameCard key={game.id} game={game} />
+    );
   });
+
+  const tieBreakerMarkup =
+    isSuperBowl && !isLoading ? (
+      <SuperBowlTieBreaker
+        tieBreakers={data?.tieBreakers || []}
+        userTieBreaker={data?.userTieBreaker}
+      />
+    ) : null;
 
   return (
     <>
@@ -47,12 +65,11 @@ export function Home() {
       </Head>
 
       <Page title={'Home'} action={selectMarkup}>
-        <Banner
-          title="Championship Weekend is here."
-          status={BannerStatus.Info}
-        >
+        <Banner title="It's time for the superbowl!" status={BannerStatus.Info}>
           <p className={styles.Message}>
-            Each game is worth 4 points this week. Check out the{' '}
+            The Superbowl is worth 5 points. As a tie breaker, please enter your
+            prediction for total points scored in the superbowl below. Check out
+            the{' '}
             <Link href="/leaderboard">
               <a>Leaderboard page</a>
             </Link>{' '}
@@ -60,7 +77,15 @@ export function Home() {
           </p>
         </Banner>
         {loadingMarkup}
-        <div className={styles.GameGrid}>{gamesMarkup}</div>
+        <div
+          className={classNames(
+            styles.GameGrid,
+            isSuperBowl && styles.SuperBowlGrid
+          )}
+        >
+          {gamesMarkup}
+          {tieBreakerMarkup}
+        </div>
         {data?.games.length < 1 && (
           <p className={styles.NoGamesFound}>
             No games added for this week! Try another week.

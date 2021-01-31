@@ -10,6 +10,21 @@
   }
 }
 
+.SuperBowlGrid {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.SuperBowlGame {
+  width: 450px;
+  max-width: 100%;
+
+  @include mobile {
+    width: 100%;
+  }
+}
+
 .WeekSelect {
   display: flex;
   align-items: center;

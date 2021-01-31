@@ -1,0 +1,22 @@
+.TieBreaker {
+  width: 450px;
+  max-width: 100%;
+  padding: 2rem;
+
+  @include mobile {
+    width: 100%;
+  }
+}
+
+.Spinner {
+  padding-right: 0.5rem;
+}
+
+.Success {
+  padding: 0 1rem;
+}
+
+.Error {
+  padding: 0 1rem;
+  color: red;
+}

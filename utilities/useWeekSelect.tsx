@@ -3,7 +3,7 @@ import {Select} from 'components';
 import {weekOptions} from 'data/weeks';
 
 export function useWeekSelect() {
-  const [week, setWeek] = useState('CC');
+  const [week, setWeek] = useState('SB');
 
   const weekSelect = (
     <Select

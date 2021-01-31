@@ -4,6 +4,7 @@ import {
   Game,
   Pick as PickModel,
   LeaderboardEntry,
+  TieBreaker,
 } from '@prisma/client';
 
 export type ErrorResponse = {
@@ -49,8 +50,13 @@ export interface GameWithTeamsAndPicksAndUserPick
   userPick?: PickWithTeamAndUserName;
 }
 
+export interface TieBreakerWithUser extends TieBreaker {
+  user: Pick<User, 'id' | 'username'>;
+}
 export interface GamesResponse {
   games: GameWithTeamsAndPicksAndUserPick[];
+  userTieBreaker?: TieBreakerWithUser;
+  tieBreakers?: TieBreakerWithUser[];
 }
 
 export type GameResponse = {
