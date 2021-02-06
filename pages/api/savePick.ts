@@ -3,7 +3,7 @@ import {PrismaClient} from '@prisma/client';
 import jwt from 'jsonwebtoken';
 import {ErrorResponse} from 'types';
 
-import {wait} from 'utilities/wait';
+import {gameStarted} from 'utilities/gameStarted';
 
 const prisma = new PrismaClient();
 
@@ -41,7 +41,7 @@ export default async (
     }
 
     // Prisma types the start date as a js Date, but it returns a date string
-    if (Date.parse((game.start as unknown) as string) < Date.now()) {
+    if (gameStarted(game)) {
       res.statusCode = 400;
       return res.json({message: 'This game has already started!'});
     }

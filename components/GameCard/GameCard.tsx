@@ -5,6 +5,7 @@ import {classNames} from 'utilities/classNames';
 import {Card, useCurrentUser} from 'components';
 import {GameWithTeamsAndPicksAndUserPick} from 'types';
 import {Pick, ClosedPick} from './components';
+import {gameStarted as hasGameStarted} from 'utilities/gameStarted';
 
 import styles from './GameCard.module.scss';
 
@@ -17,7 +18,7 @@ export function GameCard({game}: Props) {
 
   const {home, away, start} = game;
 
-  const gameStarted = Date.parse((start as unknown) as string) < Date.now();
+  const gameStarted = hasGameStarted(game);
 
   const loginMessage =
     user || gameStarted ? null : (

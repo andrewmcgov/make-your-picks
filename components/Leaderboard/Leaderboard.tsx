@@ -16,6 +16,23 @@ export function Leaderboard() {
     }
   );
 
+  function formatDiff(diff?: number) {
+    if (diff === undefined) return null;
+
+    let formattedDiff = String(diff);
+
+    if (diff > 0) {
+      formattedDiff = `+${diff}`;
+    }
+
+    return (
+      <span>
+        {' '}
+        / <strong>{formattedDiff}</strong>
+      </span>
+    );
+  }
+
   return (
     <div className={styles.Leaderboard}>
       {isLoading && <SkeletonCard />}
@@ -33,20 +50,28 @@ export function Leaderboard() {
                 <th>DIV</th>
                 <th>CC</th>
                 <th>SB</th>
+                <th>TB</th>
                 <th>Total</th>
               </tr>
             </thead>
             <tbody>
-              {data.entries.map((entry) => (
-                <tr>
-                  <td>{entry.user.username}</td>
-                  <td>{entry.wildcard}</td>
-                  <td>{entry.division}</td>
-                  <td>{entry.conference}</td>
-                  <td>{entry.superbowl}</td>
-                  <td>{entry.total}</td>
-                </tr>
-              ))}
+              {data.entries.map((entry) => {
+                console.log(entry.tieBreaker);
+                return (
+                  <tr key={entry.userId}>
+                    <td>{entry.user.username}</td>
+                    <td>{entry.wildcard}</td>
+                    <td>{entry.division}</td>
+                    <td>{entry.conference}</td>
+                    <td>{entry.superbowl}</td>
+                    <td>
+                      {entry.tieBreaker === undefined ? '??' : entry.tieBreaker}
+                      {formatDiff(entry.diff)}
+                    </td>
+                    <td>{entry.total}</td>
+                  </tr>
+                );
+              })}
             </tbody>
           </table>
         </>

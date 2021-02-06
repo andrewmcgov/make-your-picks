@@ -66,6 +66,8 @@ export type GameResponse = {
 export interface LeaderboardEntryWithUserInfo extends LeaderboardEntry {
   user: Pick<User, 'id' | 'username'>;
   total: number;
+  tieBreaker?: number;
+  diff?: number;
 }
 
 export interface LeaderboardEntryResponse {
