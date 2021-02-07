@@ -1,6 +1,8 @@
 import React from 'react';
 import Head from 'next/head';
 import {useQuery} from 'react-query';
+import Confetti from 'react-confetti';
+import useWindowSize from 'react-use/lib/useWindowSize';
 import {
   GameCard,
   Page,
@@ -12,12 +14,14 @@ import {
 import {GamesResponse} from 'types';
 import {useWeekSelect} from 'utilities/useWeekSelect';
 import {classNames} from 'utilities/classNames';
+import {gameStarted} from 'utilities/gameStarted';
 import {SuperBowlTieBreaker} from './components';
 
 import styles from './Home.module.scss';
 
 export function Home() {
   const {week, weekSelect} = useWeekSelect();
+  const {width, height} = useWindowSize();
 
   const {data, isLoading} = useQuery<GamesResponse>(
     ['games', week],
@@ -45,6 +49,10 @@ export function Home() {
   ) : null;
 
   const isSuperBowl = week === 'SB';
+  const superBowl = isSuperBowl && data?.games[0];
+  const superBowlStarted = superBowl ? gameStarted(superBowl) : false;
+  const superBowlFinished =
+    superBowl && (superBowl.awayScore || superBowl.homeScore);
 
   const gamesMarkup = data?.games.map((game) => {
     return isSuperBowl ? (
@@ -57,11 +65,8 @@ export function Home() {
   });
 
   const tieBreakerMarkup =
-    isSuperBowl && !isLoading ? (
-      <SuperBowlTieBreaker
-        tieBreakers={data?.tieBreakers || []}
-        userTieBreaker={data?.userTieBreaker}
-      />
+    isSuperBowl && !superBowlStarted && !isLoading ? (
+      <SuperBowlTieBreaker userTieBreaker={data?.userTieBreaker} />
     ) : null;
 
   return (
@@ -69,6 +74,12 @@ export function Home() {
       <Head>
         <title>MAKE YOUR PICKS!</title>
       </Head>
+      {typeof window !== 'undefined' && superBowlFinished ? (
+        <Confetti
+          width={width}
+          height={document.documentElement.scrollHeight}
+        />
+      ) : null}
 
       <Page title={'Home'} action={selectMarkup}>
         <Banner title="It's time for the superbowl!" status={BannerStatus.Info}>

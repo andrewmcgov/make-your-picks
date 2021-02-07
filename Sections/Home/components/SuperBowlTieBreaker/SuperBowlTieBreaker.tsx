@@ -6,11 +6,10 @@ import {TieBreakerWithUser} from 'types';
 import styles from './SuperBowlTieBreaker.module.scss';
 
 interface Props {
-  tieBreakers: TieBreakerWithUser[];
   userTieBreaker?: TieBreakerWithUser;
 }
 
-export function SuperBowlTieBreaker({tieBreakers, userTieBreaker}: Props) {
+export function SuperBowlTieBreaker({userTieBreaker}: Props) {
   const originalTotal =
     userTieBreaker?.value !== undefined ? String(userTieBreaker?.value) : '';
   const [total, setTotal] = useState(originalTotal);
