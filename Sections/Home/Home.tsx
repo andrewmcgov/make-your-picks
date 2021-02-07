@@ -54,6 +54,11 @@ export function Home() {
   const superBowlFinished =
     superBowl && (superBowl.awayScore || superBowl.homeScore);
 
+  const winningConfettiColors =
+    superBowlFinished && superBowl.awayScore > superBowl.homeScore
+      ? ['#e31837', '#ffb81c']
+      : ['#d50a0a', '#322F2B'];
+
   const gamesMarkup = data?.games.map((game) => {
     return isSuperBowl ? (
       <div className={styles.SuperBowlGame}>
@@ -69,6 +74,14 @@ export function Home() {
       <SuperBowlTieBreaker userTieBreaker={data?.userTieBreaker} />
     ) : null;
 
+  const leaderboardMarkup = (
+    <div className={styles.Leaderboard}>
+      <div>
+        <Leaderboard />
+      </div>
+    </div>
+  );
+
   return (
     <>
       <Head>
@@ -77,19 +90,33 @@ export function Home() {
       {typeof window !== 'undefined' && superBowlFinished ? (
         <Confetti
           width={width}
-          height={document.documentElement.scrollHeight}
+          height={document.body.scrollHeight}
+          confettiSource={{
+            x: 0,
+            y: 0,
+            w: width,
+            h: document.body.scrollHeight,
+          }}
+          numberOfPieces={300}
+          colors={winningConfettiColors}
         />
       ) : null}
 
       <Page title={'Home'} action={selectMarkup}>
-        <Banner title="It's time for the superbowl!" status={BannerStatus.Info}>
-          <p className={styles.Message}>
-            The Superbowl is worth 5 points. As a tie breaker, please enter your
-            prediction for how many total points will be scored in the superbowl
-            below.
-          </p>
-        </Banner>
+        {superBowlStarted ? null : (
+          <Banner
+            title="It's time for the superbowl!"
+            status={BannerStatus.Info}
+          >
+            <p className={styles.Message}>
+              The Superbowl is worth 5 points. As a tie breaker, please enter
+              your prediction for how many total points will be scored in the
+              superbowl below.
+            </p>
+          </Banner>
+        )}
         {loadingMarkup}
+        {superBowlStarted ? leaderboardMarkup : null}
         <div
           className={classNames(
             styles.GameGrid,
@@ -104,11 +131,7 @@ export function Home() {
             No games added for this week! Try another week.
           </p>
         )}
-        <div className={styles.Leaderboard}>
-          <div>
-            <Leaderboard />
-          </div>
-        </div>
+        {!superBowlStarted ? leaderboardMarkup : null}
       </Page>
     </>
   );
