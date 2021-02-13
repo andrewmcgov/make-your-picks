@@ -62,10 +62,10 @@ export function ClosedPick({game}: Props) {
         <ul>
           {awayPicks.map((currentPick) => (
             <li
+              key={currentPick.id}
               className={classNames(
                 currentPick.userId === pick?.userId ? styles.Bold : null
               )}
-              key={currentPick.id}
             >
               {currentPick.user.username}
             </li>
@@ -77,10 +77,10 @@ export function ClosedPick({game}: Props) {
         <ul>
           {homePicks.map((currentPick) => (
             <li
+              key={currentPick.id}
               className={classNames(
                 currentPick.userId === pick?.userId ? styles.Bold : null
               )}
-              key={currentPick.id}
             >
               {currentPick.user.username}
             </li>

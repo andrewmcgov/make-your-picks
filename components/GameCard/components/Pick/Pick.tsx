@@ -4,6 +4,7 @@ import {useMutation} from 'react-query';
 import {FiUnlock} from 'react-icons/fi';
 import styles from './Pick.module.scss';
 import {GameWithTeamsAndPicksAndUserPick} from 'types';
+import {customFetch} from 'utilities/api';
 
 interface Props {
   game: GameWithTeamsAndPicksAndUserPick;
@@ -16,17 +17,18 @@ export function Pick({game}: Props) {
   const {id, awayId, homeId, home, away, start} = game;
 
   const [savePick, {isLoading}] = useMutation<any, unknown, {pick: number}>(
-    async (variables) => {
-      const res = await fetch(`/api/savePick`, {
-        method: 'POST',
+    (variables) =>
+      customFetch({
+        url: `/api/savePick`,
         body: JSON.stringify({gameId: id, teamId: variables.pick}),
-      });
-      const data = await res.json();
-      if (!data.success) {
-        setError(data.message || 'Error saving pick');
-        setPick(originalPick);
-      }
-      return data;
+      }),
+    {
+      onSuccess: (data) => {
+        if (!data.success) {
+          setError(data.message || 'Error saving pick');
+          setPick(originalPick);
+        }
+      },
     }
   );
 

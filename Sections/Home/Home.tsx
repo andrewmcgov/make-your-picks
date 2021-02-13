@@ -16,6 +16,7 @@ import {useWeekSelect} from 'utilities/useWeekSelect';
 import {classNames} from 'utilities/classNames';
 import {gameStarted} from 'utilities/gameStarted';
 import {SuperBowlTieBreaker} from './components';
+import {customFetch} from 'utilities/api';
 
 import styles from './Home.module.scss';
 
@@ -23,16 +24,8 @@ export function Home() {
   const {week, weekSelect} = useWeekSelect();
   const {width, height} = useWindowSize();
 
-  const {data, isLoading} = useQuery<GamesResponse>(
-    ['games', week],
-    async () => {
-      const res = await fetch(`/api/games`, {
-        method: 'POST',
-        body: JSON.stringify({week: week}),
-      });
-      const data = await res.json();
-      return data;
-    }
+  const {data, isLoading} = useQuery<GamesResponse>(['games', week], () =>
+    customFetch({url: '/api/games', body: JSON.stringify({week: week})})
   );
 
   const selectMarkup = <div className={styles.WeekSelect}>{weekSelect}</div>;

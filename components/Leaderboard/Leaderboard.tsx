@@ -3,17 +3,12 @@ import {useQuery} from 'react-query';
 import {SkeletonCard} from 'components';
 import {LeaderboardEntryResponse} from 'types';
 import styles from './Leaderboard.module.scss';
+import {customFetch} from 'utilities/api';
 
 export function Leaderboard() {
   const {data, isLoading} = useQuery<LeaderboardEntryResponse>(
     ['leaderboard'],
-    async () => {
-      const res = await fetch(`/api/leaderboard`, {
-        method: 'POST',
-      });
-      const data = await res.json();
-      return data;
-    }
+    () => customFetch({url: '/api/leaderboard'})
   );
 
   function formatDiff(diff?: number) {

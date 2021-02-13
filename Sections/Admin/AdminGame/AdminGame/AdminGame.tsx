@@ -7,6 +7,7 @@ import {GameResponse} from 'types';
 import {GameForm} from '../../components';
 import {CloseGameCard} from './components';
 import {DeleteGameCard} from './components/DeleteGameCard';
+import {customFetch} from 'utilities/api';
 
 export function AdminGame() {
   const router = useRouter();
@@ -14,14 +15,7 @@ export function AdminGame() {
 
   const {data, isLoading: gameLoading} = useQuery<GameResponse>(
     ['game', id],
-    async () => {
-      const res = await fetch(`/api/game`, {
-        method: 'POST',
-        body: JSON.stringify({id: id}),
-      });
-      const data = await res.json();
-      return data;
-    }
+    () => customFetch({url: '/api/game', body: JSON.stringify({id: id})})
   );
 
   const game = data?.game;

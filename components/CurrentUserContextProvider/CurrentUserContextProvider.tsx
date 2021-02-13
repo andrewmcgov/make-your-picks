@@ -1,6 +1,7 @@
 import React, {createContext, useContext} from 'react';
 import {useQuery} from 'react-query';
 import {ClientUserResponse, ClientUser} from 'types';
+import {customFetch} from 'utilities/api';
 
 interface Props {
   children: JSX.Element;
@@ -13,11 +14,9 @@ export function useCurrentUser() {
 }
 
 export function CurrentUserContextProvider({children}: Props) {
-  const {data} = useQuery<ClientUserResponse>('currentUser', async () => {
-    const res = await fetch(`/api/currentUser`);
-    const data = await res.json();
-    return data;
-  });
+  const {data} = useQuery<ClientUserResponse>('currentUser', () =>
+    customFetch({url: `/api/currentUser`})
+  );
 
   return (
     <CurrentUserContext.Provider value={data?.currentUser || null}>
