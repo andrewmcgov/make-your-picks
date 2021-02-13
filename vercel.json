@@ -1,12 +1,12 @@
 {
   "env": {
-    "DATABASE_URL": "@do_db_url",
+    "DATABASE_URL": "@database-url-do-cluster",
     "ACTIVATION_KEY": "@picks_activation_key",
     "APP_SECRET": "@picks_app_secret"
   },
   "build": {
     "env": {
-      "DATABASE_URL": "@do_db_url"
+      "DATABASE_URL": "@database-url-do-cluster"
     }
   }
 }
