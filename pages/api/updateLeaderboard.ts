@@ -52,10 +52,10 @@ export default async (
           },
         }));
 
-      const picks = ((await prisma.pick.findMany({
+      const picks = await prisma.pick.findMany({
         where: {userId: user.id},
         include: {game: true},
-      })) as unknown) as PickWithGame[];
+      });
 
       const wildcardCorrectPicks = picks.filter(
         (pick) =>

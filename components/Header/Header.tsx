@@ -13,7 +13,7 @@ export function Header() {
         <div className={styles.Container}>
           <Link href="/">
             <a>
-              <h1 className={styles.Heading}>MAKE YOUR PICKS</h1>
+              <span className={styles.Heading}>MAKE YOUR PICKS</span>
             </a>
           </Link>
           <Nav />

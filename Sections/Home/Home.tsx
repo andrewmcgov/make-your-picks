@@ -61,8 +61,8 @@ export function Home() {
 
   const gamesMarkup = data?.games.map((game) => {
     return isSuperBowl ? (
-      <div className={styles.SuperBowlGame}>
-        <GameCard key={game.id} game={game} />
+      <div className={styles.SuperBowlGame} key={game.id}>
+        <GameCard game={game} />
       </div>
     ) : (
       <GameCard key={game.id} game={game} />
@@ -87,7 +87,7 @@ export function Home() {
       <Head>
         <title>MAKE YOUR PICKS!</title>
       </Head>
-      {typeof window !== 'undefined' && superBowlFinished ? (
+      {typeof window !== 'undefined' && superBowlFinished && false ? (
         <Confetti
           width={width}
           height={document.body.scrollHeight}
@@ -99,6 +99,7 @@ export function Home() {
           }}
           numberOfPieces={300}
           colors={winningConfettiColors}
+          recycle={false}
         />
       ) : null}
 

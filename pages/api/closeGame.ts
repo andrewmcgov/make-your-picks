@@ -23,10 +23,10 @@ export default async (
 
     if (user.id <= 2) {
       // Get the game from the database, and include all picks for that game
-      const game = ((await prisma.game.findUnique({
+      const game = await prisma.game.findUnique({
         where: {id: Number(gameId)},
         include: {picks: true},
-      })) as unknown) as GameWithPicks;
+      });
 
       if (!game || ![game.awayId, game.homeId].includes(Number(winnerId))) {
         res.statusCode = 200;
