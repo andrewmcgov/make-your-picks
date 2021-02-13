@@ -21,7 +21,7 @@ export default async (
   const week = body?.week ? body.week : '16';
 
   if (!adminPage) {
-    games = ((await prisma.game.findMany({
+    games = await prisma.game.findMany({
       where: {
         week,
       },
@@ -30,7 +30,7 @@ export default async (
         away: true,
         picks: {include: {team: true, user: {select: {username: true}}}},
       },
-    })) as unknown) as GameWithTeamsAndPicks[];
+    });
 
     if (userId) {
       games = games.map((game) => {
@@ -47,10 +47,10 @@ export default async (
       });
     }
   } else {
-    games = ((await prisma.game.findMany({
+    games = await prisma.game.findMany({
       where: {week},
       include: {home: true, away: true},
-    })) as unknown) as GameWithTeamsAndPicks[];
+    });
   }
 
   res.statusCode = 200;

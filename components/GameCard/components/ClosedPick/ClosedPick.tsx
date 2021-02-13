@@ -65,6 +65,7 @@ export function ClosedPick({game}: Props) {
               className={classNames(
                 currentPick.userId === pick?.userId ? styles.Bold : null
               )}
+              key={currentPick.id}
             >
               {currentPick.user.username}
             </li>
@@ -79,6 +80,7 @@ export function ClosedPick({game}: Props) {
               className={classNames(
                 currentPick.userId === pick?.userId ? styles.Bold : null
               )}
+              key={currentPick.id}
             >
               {currentPick.user.username}
             </li>

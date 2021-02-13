@@ -1,6 +1,6 @@
 import type {NextApiRequest, NextApiResponse} from 'next';
 import {PrismaClient} from '@prisma/client';
-import {LeaderboardEntryResponse, LeaderboardEntryWithUserInfo} from 'types';
+import {LeaderboardEntryResponse} from 'types';
 import {gameStarted} from 'utilities/gameStarted';
 
 const prisma = new PrismaClient();
@@ -9,10 +9,10 @@ export default async (
   req: NextApiRequest,
   res: NextApiResponse<LeaderboardEntryResponse | null>
 ) => {
-  const leaderbaordEntries = ((await prisma.leaderboardEntry.findMany({
+  const leaderbaordEntries = await prisma.leaderboardEntry.findMany({
     where: {season: '2020'},
     include: {user: {select: {username: true, id: true}}},
-  })) as unknown) as LeaderboardEntryWithUserInfo[];
+  });
 
   const tieBreakers = await prisma.tieBreaker.findMany({
     where: {season: '2020'},

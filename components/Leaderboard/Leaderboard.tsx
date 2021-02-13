@@ -56,7 +56,6 @@ export function Leaderboard() {
             </thead>
             <tbody>
               {data.entries.map((entry) => {
-                console.log(entry.tieBreaker);
                 return (
                   <tr key={entry.userId}>
                     <td>{entry.user.username}</td>
